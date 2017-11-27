@@ -5,12 +5,31 @@ window.onload = function(){
 
   var ctx = c.getContext('2d');
 
-  ctx.fillRect(100, 200, 400, 150);
+  var environment = new Environment();
+  gameLoop();
 
-// var hero1 = new Image();
-// hero1.src = 'img/mario.png';
-// hero1.onload = function(){
-//   ctx.drawImage(hero1, 500, 200);
-// };
+  function gameLoop(){
+    ctx.clearRect(0,0,c.width,c.height);
+    environment.update();
+    environment.render(ctx);
+    window.requestAnimationFrame(gameLoop);
+  }
 
+  ctx.drawImage(document.getElementById('hero1'), 200, 20);
+  ctx.drawImage(document.getElementById('hero2'), 400, 100);
+  ctx.drawImage(document.getElementById('hero3'), 600, 200);
+};
+
+var Environment = function (){
+  this.bgPos = 0;
+  this.fgPos = 0;
+  this.bgSpeed = 2;
+  this.bgImg = document.getElementById('bg');
+};
+
+Environment.prototype.update = function() {
+  this.bgPos -= this.bgSpeed;
+};
+Environment.prototype.render = function(ctx) {
+  ctx.drawImage(this.bgImg, this.bgPos, 0);
 };
