@@ -37,6 +37,12 @@ input {
   font-family: cursive;
   margin: 0;
 }
+
+.canvas-size{
+  padding-left: 10%;
+  padding-top: 100px;
+}
+
 button{
   overflow: hidden;
   background-position: center;
@@ -48,7 +54,6 @@ button{
   font-family: cursive;
   margin: 0;
 }
-
 
 .profile-info{
   display: inline-block;
