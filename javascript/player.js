@@ -8,7 +8,7 @@ var Hero = function(x, y, ctx){
   this.sprites = document.getElementById('hero1');
   var self = this;
   window.addEventListener('keydown', function(e) {
-    if (e.keyCode === 32){
+    if (e.keyCode === 38){
       self.velY = -20;
     }
   });
