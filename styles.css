@@ -38,6 +38,10 @@ body {
   font-family: cursive;
   margin: 0;
 }
+.canvas-size{
+  padding-left: 10%;
+  padding-top: 100px;
+}
 
 .profile-info{
   display: inline-block;

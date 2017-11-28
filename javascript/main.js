@@ -1,7 +1,7 @@
 window.onload = function(){
   var c = document.getElementById('canvas');
-  c.width = window.innerWidth;
-  c.height = 600;
+  c.width = 1040;
+  c.height = 510;
 
   var ctx = c.getContext('2d');
   var environment = new Environment(c, ctx);
