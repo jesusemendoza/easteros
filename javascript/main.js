@@ -12,6 +12,7 @@ window.onload = function(){
     ctx.clearRect(0,0,c.width,c.height);
     environment.update();
     environment.render();
+    renderLevel();
     hero.update();
     hero.render();
     window.requestAnimationFrame(gameLoop);
