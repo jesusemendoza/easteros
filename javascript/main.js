@@ -1,3 +1,13 @@
+
+function namePer() {
+  var name = localStorage.name;
+  var userName = document.getElementById('useName');
+  userName.textContent = name ;
+}
+namePer();
+
+
+
 window.onload = function(){
   var c = document.getElementById('canvas');
   c.width = window.innerWidth;
@@ -22,3 +32,13 @@ window.onload = function(){
   ctx.drawImage(document.getElementById('hero2'), 400, 100);
   ctx.drawImage(document.getElementById('hero3'), 600, 200);
 };
+
+var thing = document.getElementById('form1');
+function onSubmit(event) {
+  event.preventDefault();
+  var text = event.target.userName.value;
+  console.log(text);
+  localStorage.name = text;
+
+}
+thing.addEventListener('submit',onSubmit);
