@@ -26,8 +26,7 @@ body {
 
 
 }
-.useName{
-
+input {
   overflow: hidden;
   background-position: center;
   position: fixed;
@@ -38,9 +37,22 @@ body {
   font-family: cursive;
   margin: 0;
 }
+
 .canvas-size{
   padding-left: 10%;
   padding-top: 100px;
+}
+
+button{
+  overflow: hidden;
+  background-position: center;
+  position: fixed;
+  top: 27px;
+  left: 90%;
+  z-index: 10;
+  color: black;
+  font-family: cursive;
+  margin: 0;
 }
 
 .profile-info{

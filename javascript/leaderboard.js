@@ -3,7 +3,13 @@ function Score (name, score) {
   this.score = score;
 }
 
-localStorage.name = 'Cody';
+function namePer() {
+  var name = localStorage.name;
+  var userName = document.getElementById('useName');
+  userName.textContent = name ;
+}
+namePer();
+
 localStorage.score = 6;
 localStorage.leaderboard = JSON.stringify([new Score ('red', 10), new Score ('orange', 9), new Score ('yellow', 8), new Score ('green', 7), new Score ('blue', 6), new Score ('indigo', 5), new Score ('violet', 4)]);
 //var arr = JSON.parse(localStorage.get (leaderb));
