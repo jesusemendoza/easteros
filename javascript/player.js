@@ -10,7 +10,7 @@ var Hero = function(x, y, ctx){
   var self = this;
   window.addEventListener('keydown', function(e) {
     if (e.keyCode === 38){
-      self.velY = -10;
+      self.velY = -5;
     } else if (e.keyCode === 39) {
       self.velX = 2;
     } else if (e.keyCode === 37) {
@@ -21,7 +21,7 @@ var Hero = function(x, y, ctx){
 
 Hero.prototype.update = function(){
   this.y += this.velY;
-  this.velY += 0;
+  this.velY += 0.1;
   var xSpeedStep = 0.05;
   if (this.velX < xSpeedStep){
     this.x += this.velX;
