@@ -15,5 +15,26 @@ img {
   width: 100%;
   right: .1%;
   z-index: 10;
+  color: black;
+  font-family: cursive;
+  display: inline;
+}
 
+.topnav a:hover{
+  background-color: green;
+  color: black;
+
+
+}
+.useName{
+
+  overflow: hidden;
+  background-position: center;
+  position: fixed;
+  top: 0%;
+  left: 90%;
+  z-index: 10;
+  color: black;
+  font-family: cursive;
+  margin: 0;
 }
