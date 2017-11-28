@@ -5,7 +5,7 @@ window.onload = function(){
 
   var ctx = c.getContext('2d');
   var environment = new Environment(c, ctx);
-  var hero = new Hero(50, 250, ctx);
+  var hero = new Hero(150, 250, ctx);
   gameLoop();
 
   function gameLoop(){
