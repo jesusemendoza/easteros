@@ -3,7 +3,7 @@ body {
   margin: 0;
 }
 
-img {
+.img-no-display {
   display: none;
 }
 
@@ -37,4 +37,14 @@ img {
   color: black;
   font-family: cursive;
   margin: 0;
+}
+
+.profile-info{
+  display: inline-block;
+  width: calc(100% / 3);
+  margin: 5% 0;
+  margin-left: calc((100% / 3) / 3);
+  color: black;
+  font-size: 20px;
+  text-align: center;
 }
