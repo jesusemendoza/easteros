@@ -54,3 +54,5 @@ var scoringMethods = {
     return row;
   },
 };
+
+scoringMethods.display();
