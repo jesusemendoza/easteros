@@ -58,9 +58,7 @@ body {
   letter-spacing: 10px;
 }
 .canvas-size{
-  padding-left: 15%;
-  padding-top: 100px;
-  padding-bottom: 5%;
+  text-align: center;
 }
 
 input {
@@ -101,9 +99,7 @@ button:hover
 
 .howto {
   text-align: center;
-  display: inline-block;
   position: relative;
-  left: 40%;
 }
 
 .welcome {
@@ -138,13 +134,12 @@ button:hover
 
 #main-table {
   font-family: 'VT323', monospace;
-  color: #d6d8d9;
+  color: black;
   font-size: 35px;
   border-collapse: collapse;
   background-color: #9a9fa1;
   text-align: center;
   margin:auto;
-  padding: 15px;
 }
 
 table, td, th {
@@ -156,4 +151,8 @@ table, td, th {
 
 tr:nth-child(even) {
   background-color: #72787b;
+}
+
+.leaderboard {
+  margin: 10%;
 }
