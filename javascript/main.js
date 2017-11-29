@@ -151,13 +151,13 @@ function move(p) {
 
 Hero.prototype.update = function(){
   // Update hero
-  this.velX = 6 * (!!keys[39] - !!keys[37]);           // 3 * Right - Left. Truthy key equals 1, falsy key equals 0.
+  this.velX = 6 * (!!keys[68] - !!keys[65]);           // 3 * Right - Left. Truthy key equals 1, falsy key equals 0.
   this.velY += 3;                                    // Gravity
   var expectedYPos = this.x + this.y;
   move(hero);
   this.onGround = (expectedYPos > this.y);
   if (expectedYPos != this.y) {this.velY = 0;}    // hero.velY is 0 on the ground
-  if (this.onGround && keys[38]) {this.velY = -10;}  // Jump
+  if (this.onGround && keys[87]) {this.velY = -10;}  // Jump
 
   // this.y += this.velY;
   // this.velY += 0;
