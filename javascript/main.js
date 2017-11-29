@@ -1,4 +1,11 @@
 'use strict';
+
+function Score (name, score) {
+  this.name = name;
+  this.score = score;
+}
+var levelSelect = 0;
+
 var user = {
   namePer: function(){
     var name = localStorage.name;
@@ -39,40 +46,7 @@ c.height = 600;
 
 var ctx = c.getContext('2d');
 
-var level = [
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,1,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
-  [0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1],
-  [0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,1,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [2,0,2,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [2,0,2,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1],
-  [0,0,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0],
-  [0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0]
-];
+var level = maps[levelSelect];
 var levelCols = level[0].length;                              // 64 Columns
 var levelRows = level.length;                                 // 32 Rows
 var tileSize = 16;                                            // 1 Tile = 16 pixels
@@ -87,7 +61,8 @@ var Hero = function(x, y, ctx,id){
   this.velX = 0;
   this.width = 32;
   this.height = 32;
-
+  this.win = false;
+  this.playing = true;
   this.sprites = document.getElementById(id);
   this.onground = false;
   var self = this;
@@ -124,11 +99,13 @@ function move(p) {
   }
   p.x += p.velX;
   // y axis
-  for (var i = 0; i < levelRows; i++) {
-    for (var j = 0; j < levelCols; j++) {
-      if (level[i][j] == 1) {
-        var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
-        var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
+
+  if (hero.y >= 650) hero.playing = false;
+  for (let i = 0; i < levelRows; i++) {
+    for (let j = 0; j < levelCols; j++) {
+      if (level[i][j] === 1) {
+        let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
+        let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
           if (p.velY < 0) {
             p.velY = b.y + b.h - p.y;       // Up Collision
@@ -145,11 +122,12 @@ function move(p) {
           // hero.y = tileSize * 26;
         }
       } else if (level[i][j] === 3) {
-        var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
-        var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
+        let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
+        let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
           // Goal block sets hero.win to true for win condition
           hero.win = true;
+          hero.playing = false;
         }
       }
     }
@@ -165,8 +143,7 @@ Hero.prototype.update = function(){
   move(hero);
   this.onGround = (expectedYPos > this.y);
   if (expectedYPos != this.y) {this.velY = 0;}    // hero.velY is 0 on the ground
-  if (hero.onGround && keys[87]) {this.velY = -10;}  // Jump
-   coin.cMain();
+  if (this.onGround && keys[87]) {this.velY = -10;}  // Jump
 };
 
 Hero.prototype.render = function(){
@@ -236,21 +213,26 @@ window.onload = function(){
 
   function gameLoop(){
     ctx.clearRect(0,0,c.width,c.height);
-    background.update();
-    background.render();
-    clouds4.update();
-    clouds4.render();
-    ufo.update();
-    ufo.render();
-    clouds3.update();
-    clouds3.render();
-    clouds2.update();
-    clouds2.render();
-    renderLevel();
-    hero.update();
-    hero.render();
-    clouds1.update();
-    clouds1.render();
+    if (hero.playing){
+      background.update();
+      background.render();
+      clouds4.update();
+      clouds4.render();
+      ufo.update();
+      ufo.render();
+      clouds3.update();
+      clouds3.render();
+      clouds2.update();
+      clouds2.render();
+      renderLevel();
+      hero.update();
+      hero.render();
+      clouds1.update();
+      clouds1.render();
+      renderScore();
+    } else {
+      end.game();
+    }
     window.requestAnimationFrame(gameLoop);
   }
 };
@@ -264,29 +246,52 @@ function onSubmit(event) {
 
 }
 
-var coin = {
-  cTest: function (a,b){
-    return a.x < b.x && a.x + a.width > b.x && a.y < b.y + tileSize + 5 && a.y + a.height > b.y;
+
+var end = {
+  game: function (){
+    end.render();
+
+    if (keys[32]) end.setUp();//if spaceBar pushed
+
+
   },
 
-  cMain: function (){
-    for (var i = 0; i < levelRows; i++) {
-      for (var j = 0; j < levelCols; j++) {
-        if (level[i][j] !== 0) {
-          var block = {
-            x: j * tileSize,
-            y: i * tileSize,};
-          if (coin.cTest (hero, block)){
-            if (level[i][j] === 2){
-              level[i][j] = 0;
-              user.score += 100; //coinvalue
-            } else if (level[i][j] === 3){
-              //TODO: win
-            }
-          }
-        }
-      }
+  setUp: function (){
+    //if user decides to play another game, this will set it up
+    if (hero.win){
+      user.addScoreToLeaderboard();
+      user.score = 0;
+      if (levelSelect < maps.length) levelSelect++;
+      else levelSelect = 0;
+      //TODO you win screen, stop game loop, reset
     }
+    hero.x = 65;
+    hero.y = 300;
+    level = maps[levelSelect];
+    hero.playing = true;
+    hero.win = false;
+    //TODO initiate game loop
+  },
+  render: function (){
+    if (hero.win){
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0,0, levelWidth, levelHeight);
+      ctx.font = '30px Comic Sans MS';
+      ctx.fillStyle = 'red';
+      ctx.textAlign = 'center';
+      ctx.fillText(user.name + ', YOU WON!', levelWidth / 2 , 150);
+      ctx.fillText('Your score: ' + user.score, levelWidth / 2 , 300);
+    }
+    else {
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0,0, levelWidth, levelHeight);
+      ctx.font = '30px Comic Sans MS';
+      ctx.fillStyle = 'red';
+      ctx.textAlign = 'center';
+      ctx.fillText('YOU LOSE! GAME OVER!', levelWidth / 2 , 150);
+      ctx.fillText('Your score: ' + user.score, levelWidth / 2 , 300);
+    }
+    ctx.fillText('Press Spacebar to play again!', levelWidth / 2 , 450);
   }
 };
 
