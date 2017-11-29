@@ -23,7 +23,7 @@ Environment.prototype.update = function() {
 };
 Environment.prototype.render = function() {
   for (let i = 0; i <= this.c.width / this.bgWidth + 1; i++)
-    this.ctx.drawImage(this.bgImg, this.bgPos + i * this.bgWidth, 0);
+    this.ctx.drawImage(this.bgImg, this.bgPos + i * this.bgWidth, -100);
 };
 
 // Level Map: 64 x 32 Array of Arrays
@@ -74,7 +74,7 @@ var tileSize = 16;                                            // 1 Tile = 16 pix
 var levelWidth = canvas.width = levelCols * tileSize;         // Pixel Width = 1024
 var levelHeight = canvas.height = levelRows * tileSize;       // Pixel Height = 512
 
-var Hero = function(x, y, ctx){
+var Hero = function(x, y, ctx,id){
   this.x = x;
   this.y = y;
   this.ctx = ctx;
@@ -82,7 +82,7 @@ var Hero = function(x, y, ctx){
   this.velX = 0;
   this.width = 128;
   this.height = 128;
-  this.sprites = document.getElementById('hero1');
+  this.sprites = document.getElementById(id);
   var self = this;
   window.addEventListener('keydown', function(e) {
     if (e.keyCode === 38){
@@ -97,7 +97,7 @@ var Hero = function(x, y, ctx){
 
 Hero.prototype.update = function(){
   this.y += this.velY;
-  this.velY += 0.1;
+  this.velY += 0;
   var xSpeedStep = 0.05;
   if (this.velX < xSpeedStep){
     this.x += this.velX;
@@ -109,6 +109,26 @@ Hero.prototype.update = function(){
 };
 
 Hero.prototype.render = function(){
+  let renderX = this.x - this.width / 2;
+  let renderY = this.y - this.height / 2;
+  this.ctx.drawImage(this.sprites, renderX, renderY);
+};
+
+var Images = function(x, y, ctx,id){
+  this.x = x;
+  this.y = y;
+  this.ctx = ctx;
+  this.velY = 0;
+  this.velX = 0;
+  this.width = 128;
+  this.height = 128;
+  this.sprites = document.getElementById(id);
+};
+
+Images.prototype.update = function(){
+};
+
+Images.prototype.render = function(){
   let renderX = this.x - this.width / 2;
   let renderY = this.y - this.height / 2;
   this.ctx.drawImage(this.sprites, renderX, renderY);
@@ -145,16 +165,19 @@ window.onload = function(){
 
   var ctx = c.getContext('2d');
   var environment = new Environment(c, ctx);
-  var hero = new Hero(150, 250, ctx);
+  var hero = new Hero(150, 250, ctx,'hero1');
+  var background = new Images (0,0,ctx,'fg');
   gameLoop();
 
   function gameLoop(){
     ctx.clearRect(0,0,c.width,c.height);
-    environment.update();
-    environment.render();
+    background.update();
+    background.render();
     renderLevel();
     hero.update();
     hero.render();
+    environment.update();
+    environment.render();
     window.requestAnimationFrame(gameLoop);
   }
 
