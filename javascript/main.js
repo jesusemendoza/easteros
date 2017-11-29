@@ -114,8 +114,18 @@ Hero.prototype.update = function(){
           y: i * tileSize,
           val: level[i][j],}
         if (colliTest (hero, target)){
-          
+          if (hero.xVelocity < 0 && ((hero.x - hero.width) * (hero.x - hero.width) <
         }
+      } else if (level[i][j] === 2){
+        //TODO: die
+      } else if (level[i][j] === 3){
+        //TODO: win
+      } else if (level[i][j] === 3){
+        //TODO: coin collect
+      }
+
+    }
+  }
 };
 
 Hero.prototype.render = function(){
