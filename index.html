@@ -3,26 +3,31 @@
 <head>
   <title>Easteros</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|VT323" rel="stylesheet">
 </head>
 <body>
-  <header>
+  <header id="home" class="mainheader">
     <nav class="topnav">
-      <a class ="active" href="leaderboard.html">Leaderboard</a>
-      <a class ="active" href="index.html">Home</a>
-      <a class ="active" href="about-us.html">About Me</a>
+      <a class="active" href="index.html">Home</a>
+      <a class="active" href="leaderboard.html">Leaderboard</a>
+      <a class="active" href="about-us.html">About Us</a>
     </nav>
-    <form id="form1">
+    <h6 class="h6main">Easteros The Game</h6>
+  </header>
+  <main>
+    <section>
+      <p class="howto">This is how you play! Blah blah blah. Please Enter Your Name!</p>
+      <form id="form1">
       <input type="text" id="userName" placeholder="Name" required="required">
       <button type="submit">Submit</button>
-   </form>
-  </header>
+      </form>
+   <div class="username" id="useName"></div>
+    </section>
+  </main>
   <div class="canvas-size">
     <canvas id="canvas"></canvas>
   </div>
-  <p id="useName"></p>
   <img class= "img-no-display" src="img/mario.png" id="hero1"/>
-  <img class= "img-no-display" src="img/daisy.png" id="hero2"/>
-  <img class= "img-no-display" src="img/mushroom.png" id="hero3"/>
   <img class= "img-no-display" src="img/cloud.png" id="bg"/>
   <img class= "img-no-display" src="img/newbackground.png" id="fg"/>
   <img class= "img-no-display" src="img/ufo.png" id="ufo"/>
