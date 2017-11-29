@@ -84,13 +84,13 @@ var Hero = function(x, y, ctx,id){
   this.ctx = ctx;
   this.velY = 0;
   this.velX = 0;
-  this.width = 128;
-  this.height = 128;
+  this.width = 18;
+  this.height = 26;
   this.sprites = document.getElementById(id);
   var self = this;
   window.addEventListener('keydown', function(e) {
     if (e.keyCode === 38){
-      self.velY = -5;
+      self.velY = -1;
     } else if (e.keyCode === 39) {
       self.velX = 2;
     } else if (e.keyCode === 37) {
@@ -113,11 +113,11 @@ Hero.prototype.update = function(){
   for (var i = 0; i < levelRows; i++) {
     for (var j = 0; j < levelCols; j++) {
       if (level[i][j] === 1) {
-        var target = {
+        var block = {
           x: j * tileSize,
           y: i * tileSize,};
-        if (collision.cTest (this, target)){
-          var dir = collision.cDir(this, target);
+        if (collision.cTest (this, block)){
+          var dir = collision.cDir(this, block);
           switch (dir) {
           case 0:{
             this.velY = 0;
@@ -164,8 +164,8 @@ var Images = function(x, y, ctx,id){
   this.ctx = ctx;
   this.velY = 0;
   this.velX = 0;
-  this.width = 128;
-  this.height = 128;
+  this.width = 25;
+  this.height = 25;
   this.sprites = document.getElementById(id);
 };
 
@@ -257,7 +257,7 @@ var collision = {
   cTest: function (a,b){
     //call hero, target: val, xcol * t, y col *t
     //target:
-    var c = a.x > b.x && a.x - a.width < b.x + this.t && a.y > b.y && a.y - a.height < b.y + this.t;
+    var c = a.x > b.x && a.x - a.width < b.x + tileSize && a.y > b.y && a.y - a.height < b.y + tileSize;
     if (c) console.log ('collision!!');
     return c;
   },
