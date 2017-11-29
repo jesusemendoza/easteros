@@ -9,6 +9,7 @@ var user = {
     var name = localStorage.name;
     var userName = document.getElementById('useName');
     userName.textContent = name ;
+    user.name = name;
   },
   score: 0,
   name: '',
@@ -169,8 +170,7 @@ function move(p) {
         var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
         var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
-          //user.addScoreToLeaderboard(); // TODO call this in win sequence
-          // Goal block sets hero.win to true for win condition
+          level[i][j] = 0;
           console.log('win')
           hero.win = true;
 
@@ -191,7 +191,7 @@ Hero.prototype.update = function(){
   if (expectedYPos != this.y) {this.velY = 0;}    // hero.velY is 0 on the ground
   if (this.onGround && keys[87]) {this.velY = -10;}
   if (hero.win === true) {
-    alert('You Win your score is ' + user.score);
+    user.addScoreToLeaderboard();
     hero.win = false;
   }
 
