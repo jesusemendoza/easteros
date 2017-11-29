@@ -81,6 +81,14 @@ button {
   font-size: 20px;
 }
 
+button:hover
+{
+  -webkit-transform: rotateZ(-30deg);
+  -ms-transform: rotateZ(-30deg);
+  transform: rotateZ(-30deg);
+  background:#53a7ea;
+}
+
 .userName {
   position: relative;
   color: white;
@@ -126,4 +134,26 @@ button {
 
 .footer-class {
   padding-bottom: 150px;
+}
+
+#main-table {
+  font-family: 'VT323', monospace;
+  color: #d6d8d9;
+  font-size: 35px;
+  border-collapse: collapse;
+  background-color: #9a9fa1;
+  text-align: center;
+  margin:auto;
+  padding: 15px;
+}
+
+table, td, th {
+  border: 1px solid black;
+  text-align: left;
+  padding: 15px;
+  empty-cells: show;
+}
+
+tr:nth-child(even) {
+  background-color: #72787b;
 }

@@ -7,7 +7,7 @@ function Score (name, score) {
 var user = {
   namePer: function(){
     var name = localStorage.name;
-    var userName = document.getElementById('useName');
+    var userName = document.getElementById('userName');
     userName.textContent = name ;
     user.name = name;
   },
