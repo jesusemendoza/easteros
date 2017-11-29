@@ -115,8 +115,7 @@ Hero.prototype.update = function(){
       if (level[i][j] === 1) {
         var target = {
           x: j * tileSize,
-          y: i * tileSize,
-          val: level[i][j],};
+          y: i * tileSize,};
         if (collision.cTest (this, target)){
           var dir = collision.cDir(this, target);
           switch (dir) {
@@ -141,14 +140,14 @@ Hero.prototype.update = function(){
             break;
           }
           }
+          if (level[i][j] === 2){
+            level[i][j] = 0;
+            user.score += 100; //coinvalue
+          } else if (level[i][j] === 3){
+            //TODO: win
+          }
         }
-      } else if (level[i][j] === 2){
-        level[i][j] = 0;
-        user.score += 100; //coinvalue
-      } else if (level[i][j] === 3){
-        //TODO: win
       }
-
     }
   }
 };
@@ -258,7 +257,9 @@ var collision = {
   cTest: function (a,b){
     //call hero, target: val, xcol * t, y col *t
     //target:
-    return a.x < b.x + this.t && a.x + a.width > b.x && a.y < b.y + this.t && a.y + a.height > b.y;
+    var c = a.x > b.x && a.x - a.width < b.x + this.t && a.y > b.y && a.y - a.height < b.y + this.t;
+    if (c) console.log ('collision!!');
+    return c;
   },
 
   cDir: function (a,b){
