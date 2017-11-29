@@ -53,8 +53,8 @@ var level = [
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   [2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [2,0,2,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   [2,0,2,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
   [1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -85,7 +85,7 @@ var Hero = function(x, y, ctx,id){
   this.velY = 0;
   this.velX = 0;
   this.width = 18;
-  this.height = 26;
+  this.height = 40;
   this.sprites = document.getElementById(id);
   var self = this;
   window.addEventListener('keydown', function(e) {
@@ -98,6 +98,7 @@ var Hero = function(x, y, ctx,id){
     }
   });
 };
+var hero = new Hero(150, 250, ctx,'hero1'); //bad practice,for debug. came from onload stuff
 
 Hero.prototype.update = function(){
   this.y += this.velY;
@@ -153,8 +154,10 @@ Hero.prototype.update = function(){
 };
 
 Hero.prototype.render = function(){
-  let renderX = this.x - this.width / 2;
-  let renderY = this.y - this.height / 2;
+  ctx.fillStyle = '#000' ;
+  ctx.fillRect (hero.x, hero.y, hero.width, hero.height);
+  var renderX = this.x;
+  var renderY = this.y;
   this.ctx.drawImage(this.sprites, renderX, renderY);
 };
 
@@ -187,7 +190,7 @@ function renderLevel() {
         ctx.fillStyle = "rgb(63,42,20)";
         ctx.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
       } else if (level[i][j] === 2) {
-        // Lava Blocks
+        // Coin Blocks
         ctx.fillStyle = "gold";
         ctx.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
       } else if (level[i][j] === 3) {
@@ -213,7 +216,6 @@ window.onload = function(){
   var clouds3 = new Environment(c, ctx, 0.1, 'bg', 300, -150);
   var clouds4 = new Environment(c, ctx, -0.05, 'bg', 200, 0);
   var ufo = new Environment(c, ctx, .5, 'ufo', -500, 0);
-  var hero = new Hero(150, 250, ctx,'hero1');
   var background = new Images (0,0,ctx,'fg');
   // var log = new Images (0,0,ctx,'fg');
   gameLoop();
@@ -255,8 +257,6 @@ function onSubmit(event) {
 var collision = {
   t: tileSize,
   cTest: function (a,b){
-    //call hero, target: val, xcol * t, y col *t
-    //target:
     var c = a.x > b.x && a.x - a.width < b.x + tileSize && a.y > b.y && a.y - a.height < b.y + tileSize;
     if (c) console.log ('collision!!');
     return c;
