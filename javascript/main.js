@@ -114,7 +114,7 @@ var Hero = function(x, y, ctx,id){
   this.onground = false;
   var self = this;
 };
-var hero = new Hero(150, 250, ctx,'hero1'); //bad practice,for debug. came from onload stuff
+// var hero = new Hero(150, 250, ctx,'hero1'); //bad practice,for debug. came from onload stuff
 
 // Key Check
 var keys = {};
@@ -183,8 +183,8 @@ function move(p) {
 
 Hero.prototype.update = function(){
   // Update hero
-  this.velX = 6 * (!!keys[68] - !!keys[65]);           // 3 * Right - Left. Truthy key equals 1, falsy key equals 0.
-  this.velY += 3;                                    // Gravity
+  this.velX = 3 * (!!keys[68] - !!keys[65]);           // 3 * Right - Left. Truthy key equals 1, falsy key equals 0.
+  this.velY += 6;                                    // Gravity
   var expectedYPos = this.x + this.y;
   move(hero);
   this.onGround = (expectedYPos > this.y);
@@ -225,6 +225,12 @@ Images.prototype.render = function(){
   this.ctx.drawImage(this.sprites, renderX, renderY);
 };
 
+function renderScore() {
+  ctx.font = '30px Comic Sans MS';
+  ctx.fillStyle = 'red';
+  ctx.textAlign = 'left';
+  ctx.fillText('Score: ' + user.score, 50, 50);
+}
 
 function renderLevel() {
   for (var i = 0; i < levelRows; i++) {
@@ -247,7 +253,7 @@ function renderLevel() {
 }
 
 
-var hero = new Hero(150, 250, ctx,'hero1');
+var hero = new Hero(65, 300, ctx,'hero1');
 
 window.onload = function(){
   var c = document.getElementById('canvas');
@@ -281,6 +287,7 @@ window.onload = function(){
     hero.render();
     clouds1.update();
     clouds1.render();
+    renderScore();
     window.requestAnimationFrame(gameLoop);
   }
 };
