@@ -1,6 +1,10 @@
+/*
+font-family: 'Barlow Condensed', sans-serif; */
+
 body {
   padding: 0;
   margin: 0;
+  background-color: #363F43;
 }
 
 .img-no-display {
@@ -8,10 +12,10 @@ body {
 }
 
 .mainheader {
-  background-image: url(img/hikingheader.jpg);
+  background-image: url(img/header.jpg);
   background-position: center;
   margin-bottom: 8px;
-  padding: 30%;
+  padding: 20%;
   background-size:cover;
   position: relative;
 }
@@ -36,9 +40,9 @@ body {
   text-align: left;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 30px;
+  font-family: 'VT323', monospace;
   letter-spacing: 5px;
-  font-weight: bold;
 }
 
 .topnav a:hover {
@@ -48,20 +52,21 @@ body {
 
 .h6main {
   position: absolute;
-  right: 10px;
-  bottom: 10px;
-  font-size: 30px;
-  color: #F9F2BA;
+  right: 240px;
+  bottom: -35px;
+  font-size: 60px;
+  font-family: 'VT323', monospace;
+  color: rgba(242, 210, 130, .8);
+  text-shadow: 2px 2px #000;
   letter-spacing: 10px;
-  font-weight: bold;
 }
 
 input {
   overflow: hidden;
   background-position: center;
   position: fixed;
-  top: 0%;
-  left: 90%;
+  top: 50%;
+  right: 50%;
   z-index: 10;
   color: black;
   font-family: cursive;
@@ -69,7 +74,7 @@ input {
 }
 
 .canvas-size{
-  padding-left: 10%;
+  padding-left: 15%;
   padding-top: 100px;
 }
 
@@ -77,12 +82,21 @@ button{
   overflow: hidden;
   background-position: center;
   position: fixed;
-  top: 27px;
-  left: 90%;
+  top: 50%;
+  left: 50%;
   z-index: 10;
   color: black;
   font-family: cursive;
   margin: 0;
+}
+
+.userName{
+  position: relative;
+  right: 90%
+}
+
+.howto {
+  text-align: center;
 }
 
 .profile-info{

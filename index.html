@@ -3,6 +3,7 @@
 <head>
   <title>Easteros</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|VT323" rel="stylesheet">
 </head>
 <body>
   <header id="home" class="mainheader">
@@ -13,10 +14,19 @@
     </nav>
     <h6 class="h6main">Easteros The Game</h6>
   </header>
+  <main>
+    <section>
+      <p class="howto">This is how you play!</p>
+      <div class="username" id="useName"></div>
+      <form id="form1">
+      <input type="text" id="userName" placeholder="Name" required="required">
+      <button type="submit">Submit</button>
+   </form>
+    </section>
+  </main>
   <div class="canvas-size">
     <canvas id="canvas"></canvas>
   </div>
-  <p id="useName"></p>
   <img class= "img-no-display" src="img/mario.png" id="hero1"/>
   <img class= "img-no-display" src="img/daisy.png" id="hero2"/>
   <img class= "img-no-display" src="img/mushroom.png" id="hero3"/>
