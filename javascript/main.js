@@ -1,10 +1,14 @@
+'use strict';
+var user = {
+  namePer: function(){
+    var name = localStorage.name;
+    var userName = document.getElementById('useName');
+    userName.textContent = name ;
+  },
+  score: 0,
+};
 
-function namePer() {
-  var name = localStorage.name;
-  var userName = document.getElementById('useName');
-  userName.textContent = name ;
-}
-namePer();
+user.namePer();
 
 var Environment = function (c, ctx, speed, id, x, y){
   this.c = c;
@@ -80,21 +84,9 @@ var Hero = function(x, y, ctx,id){
   this.ctx = ctx;
   this.velY = 0;
   this.velX = 0;
-<<<<<<< HEAD
-<<<<<<< HEAD
-  this.width = 30;
-  this.height = 30;
-  this.sprites = document.getElementById('hero1');
-=======
   this.width = 128;
   this.height = 128;
   this.sprites = document.getElementById(id);
->>>>>>> be408b2aeca8c129a37217db85fa0570e5c8fb9a
-=======
-  this.width = 128;
-  this.height = 128;
-  this.sprites = document.getElementById(id);
->>>>>>> 4bb09a0025db052c0cb16551f1c12500e389b16a
   var self = this;
   window.addEventListener('keydown', function(e) {
     if (e.keyCode === 38){
@@ -118,48 +110,47 @@ Hero.prototype.update = function(){
     this.x += this.velX;
     this.velX += -xSpeedStep;
   } else {this.velX = 0;}
-  // for (var i = 0; i < levelRows; i++) {
-  //   for (var j = 0; j < levelCols; j++) {
-  //     if (level[i][j] === 1) {
-  //       var target = {
-  //         x: j * tileSize,
-  //         y: i * tileSize,
-  //         val: level[i][j],};
-  //       if (collision.cTest (this, target)){
-  //         var dir = collision.cDir(this, target);
-  //         switch (dir) {
-  //         case 0:{
-  //           this.velY = 0;
-  //           break;
-  //         }
-  //         case 1:{
-  //           this.velX = 0;
-  //           break;
-  //         }
-  //         case 2:{
-  //           this.velY = 0;
-  //           break;
-  //         }
-  //         case 3:{
-  //           this.velX = 0;
-  //           break;
-  //         }
-  //         default:{
-  //           console.log('poop!');
-  //           break;
-  //         }
-  //         }
-  //       }
-  //     } else if (level[i][j] === 2){
-  //       //TODO: die
-  //     } else if (level[i][j] === 3){
-  //       //TODO: win
-  //     } else if (level[i][j] === 3){
-  //       //TODO: coin collect
-  //     }
-  //
-  //   }
-  // }
+  for (var i = 0; i < levelRows; i++) {
+    for (var j = 0; j < levelCols; j++) {
+      if (level[i][j] === 1) {
+        var target = {
+          x: j * tileSize,
+          y: i * tileSize,
+          val: level[i][j],};
+        if (collision.cTest (this, target)){
+          var dir = collision.cDir(this, target);
+          switch (dir) {
+          case 0:{
+            this.velY = 0;
+            break;
+          }
+          case 1:{
+            this.velX = 0;
+            break;
+          }
+          case 2:{
+            this.velY = 0;
+            break;
+          }
+          case 3:{
+            this.velX = 0;
+            break;
+          }
+          default:{
+            console.log('poop!');
+            break;
+          }
+          }
+        }
+      } else if (level[i][j] === 2){
+        level[i][j] = 0;
+        user.score += 100; //coinvalue
+      } else if (level[i][j] === 3){
+        //TODO: win
+      }
+
+    }
+  }
 };
 
 Hero.prototype.render = function(){

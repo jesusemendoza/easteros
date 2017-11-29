@@ -25,7 +25,7 @@ var scoringMethods = {
       }
       newArr.push(arr[i]);
     }
-    newArr.pop();
+    if (added) newArr.pop();
     localStorage.leaderboard = JSON.stringify (newArr);
   },
 
