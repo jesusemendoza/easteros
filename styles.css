@@ -23,7 +23,7 @@ body {
 .topnav {
   overflow: hidden;
   background-color: #F8F8FF;
-  position: fixed;
+  position: absolute;
   background-position: center;
   top: 0%;
   width: 100%;
@@ -60,43 +60,29 @@ body {
   text-shadow: 2px 2px #000;
   letter-spacing: 10px;
 }
-
-input {
-  overflow: hidden;
-  background-position: center;
-  position: fixed;
-  top: 50%;
-  right: 50%;
-  z-index: 10;
-  color: black;
-  font-family: cursive;
-  margin: 0;
-}
-
 .canvas-size{
   padding-left: 15%;
   padding-top: 100px;
 }
 
-button{
-  overflow: hidden;
-  background-position: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  z-index: 10;
+input {
+  position: relative;
   color: black;
-  font-family: cursive;
-  margin: 0;
+}
+
+button{
+  position: relative;
+  color: black;
 }
 
 .userName{
   position: relative;
-  right: 90%
+  color: white;
 }
 
 .howto {
   text-align: center;
+  text
 }
 
 .profile-info{
