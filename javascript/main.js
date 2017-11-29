@@ -84,15 +84,15 @@ var Hero = function(x, y, ctx,id){
   this.ctx = ctx;
   this.velY = 0;
   this.velX = 0;
-  this.width = 18;
-  this.height = 40;
+  this.width = 57;
+  this.height = 65;
   this.sprites = document.getElementById(id);
   var self = this;
   window.addEventListener('keydown', function(e) {
     if (e.keyCode === 38){
       self.velY = -1;
     } else if (e.keyCode === 39) {
-      self.velX = 2;
+      self.velX = 0.9;
     } else if (e.keyCode === 37) {
       self.velX = -2;
     }
@@ -102,7 +102,7 @@ var hero = new Hero(150, 250, ctx,'hero1'); //bad practice,for debug. came from 
 
 Hero.prototype.update = function(){
   this.y += this.velY;
-  this.velY += 0;
+  this.velY += .01;
   var xSpeedStep = 0.05;
   if (this.velX < - xSpeedStep){
     this.x += this.velX;
@@ -111,51 +111,12 @@ Hero.prototype.update = function(){
     this.x += this.velX;
     this.velX += -xSpeedStep;
   } else {this.velX = 0;}
-  for (var i = 0; i < levelRows; i++) {
-    for (var j = 0; j < levelCols; j++) {
-      if (level[i][j] === 1) {
-        var block = {
-          x: j * tileSize,
-          y: i * tileSize,};
-        if (collision.cTest (this, block)){
-          var dir = collision.cDir(this, block);
-          switch (dir) {
-          case 0:{
-            this.velY = 0;
-            break;
-          }
-          case 1:{
-            this.velX = 0;
-            break;
-          }
-          case 2:{
-            this.velY = 0;
-            break;
-          }
-          case 3:{
-            this.velX = 0;
-            break;
-          }
-          default:{
-            console.log('poop!');
-            break;
-          }
-          }
-          if (level[i][j] === 2){
-            level[i][j] = 0;
-            user.score += 100; //coinvalue
-          } else if (level[i][j] === 3){
-            //TODO: win
-          }
-        }
-      }
-    }
-  }
+  collision.cMain();
 };
 
 Hero.prototype.render = function(){
-  ctx.fillStyle = '#000' ;
-  ctx.fillRect (hero.x, hero.y, hero.width, hero.height);
+  //ctx.fillStyle = '#000' ;
+  //ctx.fillRect (hero.x, hero.y, hero.width, hero.height);
   var renderX = this.x;
   var renderY = this.y;
   this.ctx.drawImage(this.sprites, renderX, renderY);
@@ -241,8 +202,8 @@ window.onload = function(){
   }
 
   ctx.drawImage(document.getElementById('hero1'), 200, 20);
-  ctx.drawImage(document.getElementById('hero2'), 400, 100);
-  ctx.drawImage(document.getElementById('hero3'), 600, 200);
+  //ctx.drawImage(document.getElementById('hero2'), 400, 100);
+  //ctx.drawImage(document.getElementById('hero3'), 600, 200);
 };
 
 var thing = document.getElementById('form1');
@@ -255,29 +216,76 @@ function onSubmit(event) {
 }
 
 var collision = {
-  t: tileSize,
   cTest: function (a,b){
-    var c = a.x > b.x && a.x - a.width < b.x + tileSize && a.y > b.y && a.y - a.height < b.y + tileSize;
-    if (c) console.log ('collision!!');
+    var c = a.x < b.x && a.x + a.width > b.x && a.y < b.y + tileSize + 5 && a.y + a.height > b.y;
+    if (c) {
+      ctx.fillStyle = '#fff';
+      ctx.fillRect (a.x, a.y, 5, 5);
+      ctx.fillStyle = '#777';
+      ctx.fillRect (b.x, b.y, 5, 5);
+    }
     return c;
   },
 
-  cDir: function (a,b){
-    //returns direction of collision - up 0, right 1, down 2, left 3
-    //hero will be a
-    var distanceX = (a.width + tileSize) / 2;
-    var dir = undefined;
-    if (distanceX => Math.abs((a.x + a.velX + a.width / 2) - b.x)){
-      dir = 3;
-    } else if (distanceX => Math.abs((a.x + a.velX - a.width / 2) - b.x - tileSize)){
-      dir = 1;
-    } else if (distanceX => Math.abs((a.y + a.velY + a.height / 2) - b.y)){
-      dir = 0;
-    } else if (distanceX => Math.abs((a.y + a.velY - a.height / 2) - b.y - tileSize)){
-      dir = 2;
+  // cDir: function (a,b){
+  //   //returns direction of collision - up 0, right 1, down 2, left 3
+  //   //hero will be a
+  //   var distanceX = (a.width + tileSize) / 2;
+  //   var dir = undefined;
+  //   if (distanceX => Math.abs((a.x + a.velX + a.width / 2) - b.x)){
+  //     dir = 3;
+  //   } else if (distanceX => Math.abs((a.x + a.velX - a.width / 2) - b.x - tileSize)){
+  //     dir = 1;
+  //   } else if (distanceX => Math.abs((a.y + a.velY + a.height / 2) - b.y)){
+  //     dir = 0;
+  //   } else if (distanceX => Math.abs((a.y + a.velY - a.height / 2) - b.y - tileSize)){
+  //     dir = 2;
+  //   }
+  //   return dir;
+  // },
+
+  cMain: function (){
+    for (var i = 0; i < levelRows; i++) {
+      for (var j = 0; j < levelCols; j++) {
+        if (level[i][j] === 1) {
+          var block = {
+            x: j * tileSize,
+            y: i * tileSize,};
+          if (collision.cTest (hero, block)){
+            // var dir = collision.cDir(this, block);
+            // switch (dir) {
+            // case 0:{
+            //   this.velY = 0;
+            //   break;
+            // }
+            // case 1:{
+            //   this.velX = 0;
+            //   break;
+            // }
+            // case 2:{
+            //   this.velY = 0;
+            //   break;
+            // }
+            // case 3:{
+            //   this.velX = 0;
+            //   break;
+            // }
+            // default:{
+            //   console.log('poop!');
+            //   break;
+            // }
+            // }
+            if (level[i][j] === 2){
+              level[i][j] = 0;
+              user.score += 100; //coinvalue
+            } else if (level[i][j] === 3){
+              //TODO: win
+            }
+          }
+        }
+      }
     }
-    return dir;
-  },
+  }
 };
 
 thing.addEventListener('submit',onSubmit);
