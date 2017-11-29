@@ -7,7 +7,7 @@ function Score (name, score) {
 
 function namePer() {
   var name = localStorage.name;
-  var userName = document.getElementById('useName');
+  var userName = document.getElementById('userName');
   userName.textContent = name ;
 }
 namePer();
@@ -38,7 +38,7 @@ var scoringMethods = {
     var child = document.createElement('thead');
     parent.appendChild (child);
     parent = child;
-    child = this.buildRow(['rank','name','score']);
+    child = this.buildRow(['Rank','Name','Score']);
     parent.appendChild(child);
     parent = document.getElementById('main-table');
     child = document.createElement('tbody');
