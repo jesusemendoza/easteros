@@ -1,32 +1,11 @@
 'use strict';
-function Score (name, score) {
-  this.name = name;
-  this.score = score;
-}
-
 var user = {
   namePer: function(){
     var name = localStorage.name;
     var userName = document.getElementById('useName');
     userName.textContent = name ;
-    user.name = name;
   },
   score: 0,
-  name: '',
-  addScoreToLeaderboard: function() {
-    var arr = JSON.parse (localStorage.leaderboard);
-    var newArr = [];
-    var added = false;
-    for (var i in arr){
-      if (arr[i].score < user.score && !added){
-        newArr.push(new Score (user.name, user.score));
-        added = true;
-      }
-      newArr.push(arr[i]);
-    }
-    if (added) newArr.pop();
-    localStorage.leaderboard = JSON.stringify (newArr);
-  },
 };
 
 user.namePer();
@@ -108,13 +87,12 @@ var Hero = function(x, y, ctx,id){
   this.velX = 0;
   this.width = 32;
   this.height = 32;
-  this.win = false;
 
   this.sprites = document.getElementById(id);
   this.onground = false;
   var self = this;
 };
-// var hero = new Hero(150, 250, ctx,'hero1'); //bad practice,for debug. came from onload stuff
+var hero = new Hero(150, 250, ctx,'hero1'); //bad practice,for debug. came from onload stuff
 
 // Key Check
 var keys = {};
@@ -131,7 +109,7 @@ function move(p) {
   // x axis
   for (var i = 0; i < levelRows; i++) {
     for (var j = 0; j < levelCols; j++) {
-      if (level[i][j] === 1) {
+      if (level[i][j] == 1) {
         var a = {x: p.x + p.velX, y: p.y, w: p.width, h: p.height};
         var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
@@ -146,11 +124,11 @@ function move(p) {
   }
   p.x += p.velX;
   // y axis
-  for (let i = 0; i < levelRows; i++) {
-    for (let j = 0; j < levelCols; j++) {
-      if (level[i][j] === 1) {
-        let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
-        let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
+  for (var i = 0; i < levelRows; i++) {
+    for (var j = 0; j < levelCols; j++) {
+      if (level[i][j] == 1) {
+        var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
+        var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
           if (p.velY < 0) {
             p.velY = b.y + b.h - p.y;       // Up Collision
@@ -159,21 +137,19 @@ function move(p) {
           }
         }
       } else if (level[i][j] === 2) {
-        let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
-        let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
+        var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
+        var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
-          level[i][j] = 0;
-          user.score += 100; //coinvalue
-          console.log('user score', user.score);
+          // 2 blocks reset hero.x and y to the starting position
+          // hero.x = tileSize * 3;
+          // hero.y = tileSize * 26;
         }
       } else if (level[i][j] === 3) {
         var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
         var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
-          level[i][j] = 0;
-          console.log('win')
+          // Goal block sets hero.win to true for win condition
           hero.win = true;
-
         }
       }
     }
@@ -183,23 +159,17 @@ function move(p) {
 
 Hero.prototype.update = function(){
   // Update hero
-  this.velX = 3 * (!!keys[68] - !!keys[65]);           // 3 * Right - Left. Truthy key equals 1, falsy key equals 0.
-  this.velY += 6;                                    // Gravity
-  var expectedYPos = this.x + this.y;
+  this.velX = 6 * (!!keys[68] - !!keys[65]);           // 3 * Right - Left. Truthy key equals 1, falsy key equals 0.
+  this.velY += 0.6;                                    // Gravity
+  var expectedYPos = this.velY + this.y;
   move(hero);
   this.onGround = (expectedYPos > this.y);
   if (expectedYPos != this.y) {this.velY = 0;}    // hero.velY is 0 on the ground
-  if (this.onGround && keys[87]) {this.velY = -10;}
-  if (hero.win === true) {
-    user.addScoreToLeaderboard();
-    hero.win = false;
-  }
-
+  if (hero.onGround && keys[87]) {this.velY = -10;}  // Jump
+   coin.cMain();
 };
 
 Hero.prototype.render = function(){
-  //ctx.fillStyle = '#000' ;
-  //ctx.fillRect (hero.x, hero.y, hero.width, hero.height);
   var renderX = this.x;
   var renderY = this.y;
   this.ctx.drawImage(this.sprites, renderX, renderY);
@@ -225,12 +195,6 @@ Images.prototype.render = function(){
   this.ctx.drawImage(this.sprites, renderX, renderY);
 };
 
-function renderScore() {
-  ctx.font = '30px Comic Sans MS';
-  ctx.fillStyle = 'red';
-  ctx.textAlign = 'left';
-  ctx.fillText('Score: ' + user.score, 50, 50);
-}
 
 function renderLevel() {
   for (var i = 0; i < levelRows; i++) {
@@ -253,7 +217,7 @@ function renderLevel() {
 }
 
 
-var hero = new Hero(65, 300, ctx,'hero1');
+var hero = new Hero(150, 250, ctx,'hero1');
 
 window.onload = function(){
   var c = document.getElementById('canvas');
@@ -287,7 +251,6 @@ window.onload = function(){
     hero.render();
     clouds1.update();
     clouds1.render();
-    renderScore();
     window.requestAnimationFrame(gameLoop);
   }
 };
@@ -298,7 +261,33 @@ function onSubmit(event) {
   var text = event.target.userName.value;
   console.log(text);
   localStorage.name = text;
-  user.name = text;
+
 }
+
+var coin = {
+  cTest: function (a,b){
+    return a.x < b.x && a.x + a.width > b.x && a.y < b.y + tileSize + 5 && a.y + a.height > b.y;
+  },
+
+  cMain: function (){
+    for (var i = 0; i < levelRows; i++) {
+      for (var j = 0; j < levelCols; j++) {
+        if (level[i][j] !== 0) {
+          var block = {
+            x: j * tileSize,
+            y: i * tileSize,};
+          if (coin.cTest (hero, block)){
+            if (level[i][j] === 2){
+              level[i][j] = 0;
+              user.score += 100; //coinvalue
+            } else if (level[i][j] === 3){
+              //TODO: win
+            }
+          }
+        }
+      }
+    }
+  }
+};
 
 thing.addEventListener('submit',onSubmit);
