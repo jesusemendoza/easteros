@@ -14,4 +14,4 @@ I want to add collision detection for objects
 
 I want to add gravity for my player
 
-I want to be able to control the player with 
+I want to be able to control the player with

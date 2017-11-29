@@ -99,13 +99,55 @@ Hero.prototype.update = function(){
   this.y += this.velY;
   this.velY += 0;
   var xSpeedStep = 0.05;
-  if (this.velX < xSpeedStep){
+  if (this.velX < - xSpeedStep){
     this.x += this.velX;
     this.velX += xSpeedStep;
   } else if (this.velX > xSpeedStep) {
     this.x += this.velX;
     this.velX += -xSpeedStep;
   } else {this.velX = 0;}
+  // for (var i = 0; i < levelRows; i++) {
+  //   for (var j = 0; j < levelCols; j++) {
+  //     if (level[i][j] === 1) {
+  //       var target = {
+  //         x: j * tileSize,
+  //         y: i * tileSize,
+  //         val: level[i][j],};
+  //       if (collision.cTest (this, target)){
+  //         var dir = collision.cDir(this, target);
+  //         switch (dir) {
+  //         case 0:{
+  //           this.velY = 0;
+  //           break;
+  //         }
+  //         case 1:{
+  //           this.velX = 0;
+  //           break;
+  //         }
+  //         case 2:{
+  //           this.velY = 0;
+  //           break;
+  //         }
+  //         case 3:{
+  //           this.velX = 0;
+  //           break;
+  //         }
+  //         default:{
+  //           console.log('poop!');
+  //           break;
+  //         }
+  //         }
+  //       }
+  //     } else if (level[i][j] === 2){
+  //       //TODO: die
+  //     } else if (level[i][j] === 3){
+  //       //TODO: win
+  //     } else if (level[i][j] === 3){
+  //       //TODO: coin collect
+  //     }
+  //
+  //   }
+  // }
 };
 
 Hero.prototype.render = function(){
@@ -194,4 +236,31 @@ function onSubmit(event) {
   localStorage.name = text;
 
 }
+
+var collision = {
+  t: tileSize,
+  cTest: function (a,b){
+    //call hero, target: val, xcol * t, y col *t
+    //target:
+    return a.x < b.x + this.t && a.x + a.width > b.x && a.y < b.y + this.t && a.y + a.height > b.y;
+  },
+
+  cDir: function (a,b){
+    //returns direction of collision - up 0, right 1, down 2, left 3
+    //hero will be a
+    var distanceX = (a.width + tileSize) / 2;
+    var dir = undefined;
+    if (distanceX => Math.abs((a.x + a.velX + a.width / 2) - b.x)){
+      dir = 3;
+    } else if (distanceX => Math.abs((a.x + a.velX - a.width / 2) - b.x - tileSize)){
+      dir = 1;
+    } else if (distanceX => Math.abs((a.y + a.velY + a.height / 2) - b.y)){
+      dir = 0;
+    } else if (distanceX => Math.abs((a.y + a.velY - a.height / 2) - b.y - tileSize)){
+      dir = 2;
+    }
+    return dir;
+  },
+};
+
 thing.addEventListener('submit',onSubmit);
