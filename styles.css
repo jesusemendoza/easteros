@@ -1,6 +1,3 @@
-/*
-font-family: 'Barlow Condensed', sans-serif; */
-
 body {
   padding: 0;
   margin: 0;
@@ -63,26 +60,44 @@ body {
 .canvas-size{
   padding-left: 15%;
   padding-top: 100px;
+  padding-bottom: 5%;
 }
 
 input {
   position: relative;
   color: black;
+  display: inline-block;
+  left: 40%;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
 }
 
 button{
   position: relative;
   color: black;
+  display: inline-block;
+  left: 40%;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
 }
 
 .userName{
   position: relative;
   color: white;
+  display: inline-block;
+  position: relative;
+  left: 40%;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
 }
 
 .howto {
   text-align: center;
-  text
+  display: inline-block;
+  position: relative;
+  left: 40%;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
 }
 
 .profile-info{
