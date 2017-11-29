@@ -6,17 +6,18 @@ function Score (name, score) {
 
 var user = {
   namePer: function(){
-    var name = 'aaa';
+    var name = localStorage.name;
     var userName = document.getElementById('useName');
     userName.textContent = name ;
   },
   score: 0,
+  name: '',
   addScoreToLeaderboard: function() {
     var arr = JSON.parse (localStorage.leaderboard);
     var newArr = [];
     var added = false;
     for (var i in arr){
-      if (arr[i].score < user.score && added === false){
+      if (arr[i].score < user.score && !added){
         newArr.push(new Score (user.name, user.score));
         added = true;
       }
@@ -166,6 +167,7 @@ function move(p) {
         var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
         var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
+          //user.addScoreToLeaderboard(); // TODO call this in win sequence
           // Goal block sets hero.win to true for win condition
           hero.win = true;
         }
@@ -184,7 +186,6 @@ Hero.prototype.update = function(){
   this.onGround = (expectedYPos > this.y);
   if (expectedYPos != this.y) {this.velY = 0;}    // hero.velY is 0 on the ground
   if (this.onGround && keys[87]) {this.velY = -10;}  // Jump
-  console.log('score', user.score);
 };
 
 Hero.prototype.render = function(){
@@ -281,6 +282,7 @@ function onSubmit(event) {
   var text = event.target.userName.value;
   console.log(text);
   localStorage.name = text;
+  user.name = text;
 }
 
 thing.addEventListener('submit',onSubmit);
