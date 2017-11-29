@@ -140,9 +140,8 @@ function move(p) {
         var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
         var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
-          // Lava blocks reset hero.x and y to the starting position
-          hero.x = tileSize * 3;
-          hero.y = tileSize * 26;
+          level[i][j] = 0;
+          user.score += 100; //coinvalue
         }
       } else if (level[i][j] === 3) {
         var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
@@ -166,7 +165,6 @@ Hero.prototype.update = function(){
   this.onGround = (expectedYPos > this.y);
   if (expectedYPos != this.y) {this.velY = 0;}    // hero.velY is 0 on the ground
   if (this.onGround && keys[87]) {this.velY = -10;}  // Jump
-   coin.cMain();
 };
 
 Hero.prototype.render = function(){
@@ -263,33 +261,6 @@ function onSubmit(event) {
   var text = event.target.userName.value;
   console.log(text);
   localStorage.name = text;
-
 }
-
-var coin = {
-  cTest: function (a,b){
-    return a.x < b.x && a.x + a.width > b.x && a.y < b.y + tileSize + 5 && a.y + a.height > b.y;
-  },
-
-  cMain: function (){
-    for (var i = 0; i < levelRows; i++) {
-      for (var j = 0; j < levelCols; j++) {
-        if (level[i][j] !== 0) {
-          var block = {
-            x: j * tileSize,
-            y: i * tileSize,};
-          if (coin.cTest (hero, block)){
-            if (level[i][j] === 2){
-              level[i][j] = 0;
-              user.score += 100; //coinvalue
-            } else if (level[i][j] === 3){
-              //TODO: win
-            }
-          }
-        }
-      }
-    }
-  }
-};
 
 thing.addEventListener('submit',onSubmit);
