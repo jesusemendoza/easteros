@@ -80,8 +80,8 @@ var Hero = function(x, y, ctx){
   this.ctx = ctx;
   this.velY = 0;
   this.velX = 0;
-  this.width = 128;
-  this.height = 128;
+  this.width = 30;
+  this.height = 30;
   this.sprites = document.getElementById('hero1');
   var self = this;
   window.addEventListener('keydown', function(e) {
@@ -99,13 +99,23 @@ Hero.prototype.update = function(){
   this.y += this.velY;
   this.velY += 0.1;
   var xSpeedStep = 0.05;
-  if (this.velX < xSpeedStep){
+  if (this.velX < - xSpeedStep){
     this.x += this.velX;
     this.velX += xSpeedStep;
   } else if (this.velX > xSpeedStep) {
     this.x += this.velX;
     this.velX += -xSpeedStep;
   } else {this.velX = 0;}
+  for (var i = 0; i < levelRows; i++) {
+    for (var j = 0; j < levelCols; j++) {
+      if (level[i][j] == 1) {
+        var target = {
+          x: j * tileSize,
+          y: i * tileSize,
+          val: level[i][j],}
+        if (colliTest (hero, target)){
+          
+        }
 };
 
 Hero.prototype.render = function(){
@@ -171,4 +181,22 @@ function onSubmit(event) {
   localStorage.name = text;
 
 }
+
+var collision = {
+  t: tileSize,
+  colliTest: function (a,b){
+    //call hero, target: val, xcol * t, y col *t
+    //target:
+    return a.x < b.x + this.t && a.x + a.width > b.x && a.y < b.y + this.t && a.y + a.height > b.y;
+  },
+
+  colliAct: function (a,b){
+    if
+
+  },
+  colliCheck: function (a,b){
+    if (this.colliTest(a,b)) this.colliAct(a,b);
+  },
+}
+
 thing.addEventListener('submit',onSubmit);
