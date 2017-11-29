@@ -107,6 +107,7 @@ var Hero = function(x, y, ctx,id){
   this.velX = 0;
   this.width = 32;
   this.height = 32;
+  this.win = false;
 
   this.sprites = document.getElementById(id);
   this.onground = false;
@@ -162,6 +163,7 @@ function move(p) {
         if (collisionTest(a, b)) {
           level[i][j] = 0;
           user.score += 100; //coinvalue
+          console.log('user score', user.score);
         }
       } else if (level[i][j] === 3) {
         var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
@@ -169,7 +171,9 @@ function move(p) {
         if (collisionTest(a, b)) {
           //user.addScoreToLeaderboard(); // TODO call this in win sequence
           // Goal block sets hero.win to true for win condition
+          console.log('win')
           hero.win = true;
+
         }
       }
     }
@@ -185,7 +189,12 @@ Hero.prototype.update = function(){
   move(hero);
   this.onGround = (expectedYPos > this.y);
   if (expectedYPos != this.y) {this.velY = 0;}    // hero.velY is 0 on the ground
-  if (this.onGround && keys[87]) {this.velY = -10;}  // Jump
+  if (this.onGround && keys[87]) {this.velY = -10;}
+  if (hero.win === true) {
+    alert('You Win your score is ' + user.score);
+    hero.win = false;
+  }
+
 };
 
 Hero.prototype.render = function(){
