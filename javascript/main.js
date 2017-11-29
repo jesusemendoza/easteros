@@ -114,6 +114,7 @@ function move(p) {
   }
   p.x += p.velX;
   // y axis
+  if (hero.y >= 650) hero.playing = false;
   for (let i = 0; i < levelRows; i++) {
     for (let j = 0; j < levelCols; j++) {
       if (level[i][j] === 1) {
@@ -135,8 +136,8 @@ function move(p) {
           console.log('user score', user.score);
         }
       } else if (level[i][j] === 3) {
-        var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
-        var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
+        let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
+        let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
           level[i][j] = 0;
           console.log('win')
@@ -157,10 +158,9 @@ Hero.prototype.update = function(){
   var expectedYPos = this.x + this.y;
   move(hero);
   this.onGround = (expectedYPos > this.y);
-  if (expectedYPos != this.y) {this.velY = 0;}    // hero.velY is 0 on the ground
+  if (expectedYPos !== this.y) {this.velY = 0;}    // hero.velY is 0 on the ground
   if (this.onGround && keys[87]) {this.velY = -10;}
   if (hero.win === true) {
-    user.addScoreToLeaderboard();
     //TODO add gameEnd functionality
   }
 
@@ -259,7 +259,7 @@ window.onload = function(){
       clouds1.render();
       renderScore();
     } else {
-      //
+      end.game();
     }
     window.requestAnimationFrame(gameLoop);
   }
@@ -276,8 +276,9 @@ function onSubmit(event) {
 
 var end = {
   game: function (){
+    end.render();
 
-    end.setUp();//move to end of screen
+    if (keys[32]) end.setUp();//if spaceBar pushed
 
 
   },
@@ -285,6 +286,8 @@ var end = {
   setUp: function (){
     //if user decides to play another game, this will set it up
     if (hero.win){
+      user.addScoreToLeaderboard();
+      user.score = 0;
       if (levelSelect < maps.length) levelSelect++;
       else levelSelect = 0;
       //TODO you win screen, stop game loop, reset
@@ -303,13 +306,19 @@ var end = {
       ctx.font = '30px Comic Sans MS';
       ctx.fillStyle = 'red';
       ctx.textAlign = 'center';
-      ctx.fillText(user.name + ', YOU WON!', levelWidth / 3 , 150);
-      ctx.fillText('Your score: ' + user.score, levelWidth / 3 , 300);
+      ctx.fillText(user.name + ', YOU WON!', levelWidth / 2 , 150);
+      ctx.fillText('Your score: ' + user.score, levelWidth / 2 , 300);
     }
     else {
-      //TODO lose screen
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0,0, levelWidth, levelHeight);
+      ctx.font = '30px Comic Sans MS';
+      ctx.fillStyle = 'red';
+      ctx.textAlign = 'center';
+      ctx.fillText('YOU LOSE! GAME OVER!', levelWidth / 2 , 150);
+      ctx.fillText('Your score: ' + user.score, levelWidth / 2 , 300);
     }
-    ctx.fillText('Press Spacebar to play again!', levelWidth / 3 , 450);
+    ctx.fillText('Press Spacebar to play again!', levelWidth / 2 , 450);
   }
 };
 
