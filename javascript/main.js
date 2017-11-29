@@ -11,8 +11,24 @@ var user = {
     var name = localStorage.name;
     var userName = document.getElementById('useName');
     userName.textContent = name ;
+    user.name = name;
   },
   score: 0,
+  name: '',
+   addScoreToLeaderboard: function() {
+     var arr = JSON.parse (localStorage.leaderboard);
+     var newArr = [];
+     var added = false;
+     for (var i in arr){
+       if (arr[i].score < user.score && !added){
+         newArr.push(new Score (user.name, user.score));
+         added = true;
+       }
+       newArr.push(arr[i]);
+     }
+     if (added) newArr.pop();
+     localStorage.leaderboard = JSON.stringify (newArr);
+   },
 };
 
 user.namePer();
@@ -117,6 +133,9 @@ function move(p) {
         var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
         var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
+          level[i][j] = 0;         // 2 blocks reset hero.x and y to the starting position
+          user.score += 100; //coinvalue		 +
+
           // 2 blocks reset hero.x and y to the starting position
           // hero.x = tileSize * 3;
           // hero.y = tileSize * 26;
@@ -172,6 +191,12 @@ Images.prototype.render = function(){
   this.ctx.drawImage(this.sprites, renderX, renderY);
 };
 
+function renderScore() {
+   ctx.font = '30px Comic Sans MS';
+   ctx.fillStyle = 'red';
+   ctx.textAlign = 'left';
+   ctx.fillText('Score: ' + user.score, 50, 50);
+ }
 
 function renderLevel() {
   for (var i = 0; i < levelRows; i++) {
