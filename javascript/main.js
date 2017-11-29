@@ -6,24 +6,24 @@ function namePer() {
 }
 namePer();
 
-var Environment = function (c, ctx){
+var Environment = function (c, ctx, speed, id, x, y){
   this.c = c;
   this.ctx = ctx;
-  this.bgPos = 0;
-  this.fgPos = 0;
-  this.bgSpeed = 0.5;
+  this.bgPosX = x;
+  this.bgPosY = y;
+  this.bgSpeed = speed;
   this.bgWidth = 1024;
-  this.bgImg = document.getElementById('bg');
+  this.bgImg = document.getElementById(id);
 };
 
 Environment.prototype.update = function() {
-  this.bgPos -= this.bgSpeed;
-  if (this.bgPos < - this.bgWidth)
-    this.bgPos = 0;
+  this.bgPosX -= this.bgSpeed;
+  if (this.bgPosX < - this.bgWidth)
+    this.bgPosX = 0;
 };
 Environment.prototype.render = function() {
   for (let i = 0; i <= this.c.width / this.bgWidth + 1; i++)
-    this.ctx.drawImage(this.bgImg, this.bgPos + i * this.bgWidth, -100);
+    this.ctx.drawImage(this.bgImg, this.bgPosX + i * this.bgWidth, this.bgPosY);
 };
 
 // Level Map: 64 x 32 Array of Arrays
@@ -81,6 +81,7 @@ var Hero = function(x, y, ctx,id){
   this.velY = 0;
   this.velX = 0;
 <<<<<<< HEAD
+<<<<<<< HEAD
   this.width = 30;
   this.height = 30;
   this.sprites = document.getElementById('hero1');
@@ -89,6 +90,11 @@ var Hero = function(x, y, ctx,id){
   this.height = 128;
   this.sprites = document.getElementById(id);
 >>>>>>> be408b2aeca8c129a37217db85fa0570e5c8fb9a
+=======
+  this.width = 128;
+  this.height = 128;
+  this.sprites = document.getElementById(id);
+>>>>>>> 4bb09a0025db052c0cb16551f1c12500e389b16a
   var self = this;
   window.addEventListener('keydown', function(e) {
     if (e.keyCode === 38){
@@ -188,15 +194,15 @@ function renderLevel() {
     for (var j = 0; j < levelCols; j++) {
       if (level[i][j] === 1) {
         // Solid Blocks
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "rgb(63,42,20)";
         ctx.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
       } else if (level[i][j] === 2) {
         // Lava Blocks
-        ctx.fillStyle = "crimson";
+        ctx.fillStyle = "gold";
         ctx.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
       } else if (level[i][j] === 3) {
         // Goal Block
-        ctx.fillStyle = "gold";
+        ctx.fillStyle = "green";
         ctx.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
       }
     }
@@ -212,20 +218,33 @@ window.onload = function(){
   c.height = 510;
 
   var ctx = c.getContext('2d');
-  var environment = new Environment(c, ctx);
+  var clouds1 = new Environment(c, ctx, 0.3, 'bg', 0, -100);
+  var clouds2 = new Environment(c, ctx, -0.1, 'bg', 700, -150);
+  var clouds3 = new Environment(c, ctx, 0.1, 'bg', 300, -150);
+  var clouds4 = new Environment(c, ctx, -0.05, 'bg', 200, 0);
+  var ufo = new Environment(c, ctx, .5, 'ufo', -500, 0);
   var hero = new Hero(150, 250, ctx,'hero1');
   var background = new Images (0,0,ctx,'fg');
+  // var log = new Images (0,0,ctx,'fg');
   gameLoop();
 
   function gameLoop(){
     ctx.clearRect(0,0,c.width,c.height);
     background.update();
     background.render();
+    clouds4.update();
+    clouds4.render();
+    ufo.update();
+    ufo.render();
+    clouds3.update();
+    clouds3.render();
+    clouds2.update();
+    clouds2.render();
     renderLevel();
     hero.update();
     hero.render();
-    environment.update();
-    environment.render();
+    clouds1.update();
+    clouds1.render();
     window.requestAnimationFrame(gameLoop);
   }
 
