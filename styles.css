@@ -72,7 +72,7 @@ input {
   font-size: 20px;
 }
 
-button{
+button {
   position: relative;
   color: black;
   display: inline-block;
@@ -81,7 +81,7 @@ button{
   font-size: 20px;
 }
 
-.userName{
+.userName {
   position: relative;
   color: white;
   display: inline-block;
@@ -96,11 +96,21 @@ button{
   display: inline-block;
   position: relative;
   left: 40%;
+}
+
+.welcome {
+  font-family: 'Barlow Condensed', sans-serif;
+  text-shadow: 1px 1px #000;
+  font-size: 40px;
+  text-shadow:
+}
+
+.controls {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 20px;
 }
 
-.profile-info{
+.profile-info {
   display: inline-block;
   width: calc(100% / 3);
   margin: 5% 0;
@@ -110,7 +120,7 @@ button{
   text-align: center;
 }
 
-.about-border{
+.about-border {
   border-top: 2px solid rgba(0, 0, 0, .2);
 }
 

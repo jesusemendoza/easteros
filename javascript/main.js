@@ -242,6 +242,7 @@ Images.prototype.render = function(){
 };
 
 
+
 function renderLevel() {
   for (var i = 0; i < levelRows; i++) {
     for (var j = 0; j < levelCols; j++) {
