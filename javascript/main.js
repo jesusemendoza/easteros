@@ -1,4 +1,9 @@
 'use strict';
+function Score (name, score) {
+  this.name = name;
+  this.score = score;
+}
+
 var user = {
   namePer: function(){
     var name = localStorage.name;
@@ -6,6 +11,21 @@ var user = {
     userName.textContent = name ;
   },
   score: 0,
+  name: '',
+  addScoreToLeaderboard: function() {
+    var arr = JSON.parse (localStorage.leaderboard);
+    var newArr = [];
+    var added = false;
+    for (var i in arr){
+      if (arr[i].score < user.score && !added){
+        newArr.push(new Score (user.name, user.score));
+        added = true;
+      }
+      newArr.push(arr[i]);
+    }
+    if (added) newArr.pop();
+    localStorage.leaderboard = JSON.stringify (newArr);
+  },
 };
 
 user.namePer();
@@ -109,7 +129,7 @@ function move(p) {
   // x axis
   for (var i = 0; i < levelRows; i++) {
     for (var j = 0; j < levelCols; j++) {
-      if (level[i][j] == 1) {
+      if (level[i][j] === 1) {
         var a = {x: p.x + p.velX, y: p.y, w: p.width, h: p.height};
         var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
@@ -124,11 +144,11 @@ function move(p) {
   }
   p.x += p.velX;
   // y axis
-  for (var i = 0; i < levelRows; i++) {
-    for (var j = 0; j < levelCols; j++) {
-      if (level[i][j] == 1) {
-        var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
-        var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
+  for (let i = 0; i < levelRows; i++) {
+    for (let j = 0; j < levelCols; j++) {
+      if (level[i][j] === 1) {
+        let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
+        let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
           if (p.velY < 0) {
             p.velY = b.y + b.h - p.y;       // Up Collision
@@ -137,8 +157,8 @@ function move(p) {
           }
         }
       } else if (level[i][j] === 2) {
-        var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
-        var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
+        let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
+        let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
           level[i][j] = 0;
           user.score += 100; //coinvalue
@@ -147,6 +167,7 @@ function move(p) {
         var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
         var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
+          //user.addScoreToLeaderboard(); // TODO call this in win sequence
           // Goal block sets hero.win to true for win condition
           hero.win = true;
         }
@@ -261,6 +282,7 @@ function onSubmit(event) {
   var text = event.target.userName.value;
   console.log(text);
   localStorage.name = text;
+  user.name = text;
 }
 
 thing.addEventListener('submit',onSubmit);
