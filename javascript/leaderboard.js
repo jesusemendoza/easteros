@@ -12,7 +12,6 @@ namePer();
 
 localStorage.score = 6;
 localStorage.leaderboard = JSON.stringify([new Score ('red', 10), new Score ('orange', 9), new Score ('yellow', 8), new Score ('green', 7), new Score ('blue', 6), new Score ('indigo', 5), new Score ('violet', 4)]);
-//var arr = JSON.parse(localStorage.get (leaderb));
 var scoringMethods = {
   add: function() {
     var arr = JSON.parse (localStorage.leaderboard);
@@ -25,7 +24,7 @@ var scoringMethods = {
       }
       newArr.push(arr[i]);
     }
-    newArr.pop();
+    if (added) newArr.pop();
     localStorage.leaderboard = JSON.stringify (newArr);
   },
 
