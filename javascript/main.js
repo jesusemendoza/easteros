@@ -111,7 +111,7 @@ Hero.prototype.update = function(){
     this.x += this.velX;
     this.velX += -xSpeedStep;
   } else {this.velX = 0;}
-  collision.cMain();
+  coin.cMain();
 };
 
 Hero.prototype.render = function(){
@@ -215,66 +215,19 @@ function onSubmit(event) {
 
 }
 
-var collision = {
+var coin = {
   cTest: function (a,b){
-    var c = a.x < b.x && a.x + a.width > b.x && a.y < b.y + tileSize + 5 && a.y + a.height > b.y;
-    if (c) {
-      ctx.fillStyle = '#fff';
-      ctx.fillRect (a.x, a.y, 5, 5);
-      ctx.fillStyle = '#777';
-      ctx.fillRect (b.x, b.y, 5, 5);
-    }
-    return c;
+    return a.x < b.x && a.x + a.width > b.x && a.y < b.y + tileSize + 5 && a.y + a.height > b.y;
   },
-
-  // cDir: function (a,b){
-  //   //returns direction of collision - up 0, right 1, down 2, left 3
-  //   //hero will be a
-  //   var distanceX = (a.width + tileSize) / 2;
-  //   var dir = undefined;
-  //   if (distanceX => Math.abs((a.x + a.velX + a.width / 2) - b.x)){
-  //     dir = 3;
-  //   } else if (distanceX => Math.abs((a.x + a.velX - a.width / 2) - b.x - tileSize)){
-  //     dir = 1;
-  //   } else if (distanceX => Math.abs((a.y + a.velY + a.height / 2) - b.y)){
-  //     dir = 0;
-  //   } else if (distanceX => Math.abs((a.y + a.velY - a.height / 2) - b.y - tileSize)){
-  //     dir = 2;
-  //   }
-  //   return dir;
-  // },
 
   cMain: function (){
     for (var i = 0; i < levelRows; i++) {
       for (var j = 0; j < levelCols; j++) {
-        if (level[i][j] === 1) {
+        if (level[i][j] !== 0) {
           var block = {
             x: j * tileSize,
             y: i * tileSize,};
-          if (collision.cTest (hero, block)){
-            // var dir = collision.cDir(this, block);
-            // switch (dir) {
-            // case 0:{
-            //   this.velY = 0;
-            //   break;
-            // }
-            // case 1:{
-            //   this.velX = 0;
-            //   break;
-            // }
-            // case 2:{
-            //   this.velY = 0;
-            //   break;
-            // }
-            // case 3:{
-            //   this.velX = 0;
-            //   break;
-            // }
-            // default:{
-            //   console.log('poop!');
-            //   break;
-            // }
-            // }
+          if (coin.cTest (hero, block)){
             if (level[i][j] === 2){
               level[i][j] = 0;
               user.score += 100; //coinvalue
