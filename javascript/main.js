@@ -10,8 +10,7 @@ var levelSelect = 0;
 var user = {
   namePer: function(){
     var name = localStorage.name;
-    var userName = document.getElementById('userName');
-    userName.textContent = name ;
+    if (!name) name = 'anonymous';
     user.name = name;
   },
   score: 0,
@@ -31,9 +30,7 @@ var user = {
     localStorage.leaderboard = JSON.stringify (newArr);
   },
 };
-
 user.namePer();
-
 
 var Environment = function (c, ctx, speed, id, x, y){
   this.c = c;
