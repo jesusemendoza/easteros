@@ -117,17 +117,3 @@ button:hover {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 20px;
 }
-
-.profile-info {
-  display: inline-block;
-  width: calc(100% / 3);
-  margin: 5% 0;
-  margin-left: calc((100% / 3) / 3);
-  color: black;
-  font-size: 20px;
-  text-align: center;
-}
-
-.about-border {
-  border-top: 2px solid rgba(0, 0, 0, .2);
-}

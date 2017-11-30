@@ -68,11 +68,10 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-}
-body {
   font-family: 'Press Start 2P', cursive;
   background: repeating-linear-gradient(to bottom, #0f0a1e, #0f0a1e 2px, #140e29 2px, #140e29 4px);
 }
+
 div {
   position: absolute;
   top: 0;
