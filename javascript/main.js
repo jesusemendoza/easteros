@@ -244,27 +244,27 @@ window.onload = function(){
     } else {
       end.game();
     }
+    if (keys[32]) window.location.reload();
     window.requestAnimationFrame(gameLoop);
   }
 };
 
 var thing = document.getElementById('form1');
 function onSubmit(event) {
+  event.preventDefault();
   var text = event.target.userName.value;
-  console.log(text);
   localStorage.name = text;
 }
 
 var end = {
   game: function (){
     end.render();
-    if (keys[32]) end.setUp();
+    if (keys[83]) end.setUp();
   },
 
   setUp: function (){
     if (hero.win){
-      if (levelSelect < maps.length) levelSelect++;
-      else levelSelect = 0;
+      levelSelect++;
     } else {
       user.addScoreToLeaderboard();
       user.score = 0;
@@ -294,7 +294,8 @@ var end = {
       ctx.fillText('YOU LOSE! GAME OVER!', levelWidth / 2 , 150);
       ctx.fillText('Your score: ' + user.score, levelWidth / 2 , 300);
     }
-    ctx.fillText('Press Spacebar to play again!', levelWidth / 2 , 450);
+    ctx.font = '20px Comic Sans MS';
+    ctx.fillText('Press s to continue, spacebar to play again!', levelWidth / 2 , 450);
   }
 };
 
