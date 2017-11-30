@@ -31,6 +31,7 @@ var user = {
     if (added) newArr.pop();
     localStorage.leaderboard = JSON.stringify (newArr);
   },
+  lives: 3,
 };
 user.namePer();
 
@@ -197,6 +198,7 @@ function renderUserName() {
   ctx.fillStyle = 'red';
   ctx.textAlign = 'left';
   ctx.fillText(user.name, 900, 50);
+  ctx.fillText('lives left' + user.lives, 900, 87);
 }
 
 function renderLevel() {
@@ -285,11 +287,8 @@ var end = {
   },
 
   setUp: function (){
-    if (hero.win){
-      levelSelect++;
-    } else {
-      //TODO life functionality
-    }
+    if (!hero.win) user.lives--;
+
     hero.x = 65;
     hero.y = 300;
     level = maps[levelSelect];
