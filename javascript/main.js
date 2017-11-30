@@ -142,6 +142,7 @@ function move(p) {
         if (collisionTest(a, b)) {
           hero.win = true;
           hero.playing = false;
+          levelSelect++;
         }
       }
     }
@@ -283,7 +284,7 @@ var end = {
   s: 0,
   game: function (){
     end.render();
-    if (keys[32]) end.setUp();
+    if (keys[32] && user.lives > 0) end.setUp();
   },
 
   setUp: function (){
@@ -318,7 +319,7 @@ var end = {
       user.score = 0;
     }
     ctx.font = '20px Comic Sans MS';
-    ctx.fillText('Press spacebar to continue, return to play again!', levelWidth / 2 , 450);
+    ctx.fillText('Press spacebar to continue (' + user.lives + ' lives left), return to play again!', levelWidth / 2 , 450);
   }
 };
 
