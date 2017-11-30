@@ -79,7 +79,7 @@ var Hero = function(x, y, ctx,id){
   this.width = 40;
   this.height = 40;
   this.win = false;
-  this.playing = true;
+  this.playing = false;
   this.sprites = document.getElementById(id);
   this.onground = false;
 };
@@ -188,14 +188,14 @@ Images.prototype.render = function(){
 };
 
 function renderScore() {
-  ctx.font = '30px Comic Sans MS';
+  ctx.font = '40px Barlow Condensed';
   ctx.fillStyle = 'red';
   ctx.textAlign = 'left';
   ctx.fillText('Score: ' + user.score, 50, 50);
 }
 
 function renderUserName() {
-  ctx.font = '30px Comic Sans MS';
+  ctx.font = '40px Barlow Condensed';
   ctx.fillStyle = 'red';
   ctx.textAlign = 'left';
   ctx.fillText(user.name, 900, 50);
@@ -234,7 +234,7 @@ window.onload = function(){
   var clouds5 = new Environment(c, ctx, 0.1, 'bg', 200, 285);
   var clouds6 = new Environment(c, ctx, -0.06, 'bg', 400, 270);
   var clouds7 = new Environment(c, ctx, 0.08, 'bg', 640, 300);
-  var clouds8 = new Environment(c, ctx, -0.03, 'bg', -200, 300);
+  var clouds8 = new Environment(c, ctx, -0.03, 'bg', -200, 310);
   var ufo = new Environment(c, ctx, 0.5,'ufo', -500, 0);
   var background = new Images (0,0,ctx,'fg');
   gameLoop();
@@ -288,6 +288,7 @@ var end = {
   },
 
   setUp: function (){
+
     if (!hero.win) user.lives--;
 
     hero.x = 65;
@@ -297,29 +298,42 @@ var end = {
     hero.win = false;
   },
   render: function (){
-    if (hero.win){
+    if (levelSelect > 0){
+      if (hero.win) {
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0,0, levelWidth, levelHeight);
+        ctx.font = '30px Comic Sans MS';
+        ctx.fillStyle = 'red';
+        ctx.textAlign = 'center';
+        ctx.fillText(user.name + ', YOU WON!', levelWidth / 2 , 150);
+        ctx.fillText('Your score: ' + user.score, levelWidth / 2 , 300);
+        ctx.font = '20px Comic Sans MS';
+        ctx.fillText('Press spacebar to continue (' + user.lives + ' lives left), return to play again!', levelWidth / 2 , 450);
+      } else {
+        if (user.score !== 0 && end.s !== user.score) end.s = user.score;
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0,0, levelWidth, levelHeight);
+        ctx.font = '30px Comic Sans MS';
+        ctx.fillStyle = 'red';
+        ctx.textAlign = 'center';
+        ctx.fillText('YOU LOSE! GAME OVER!', levelWidth / 2 , 150);
+        ctx.fillText('Your score: ' + end.s, levelWidth / 2 , 300);
+        user.addScoreToLeaderboard();
+        user.score = 0;
+      }
+    }
+
+    if (levelSelect === 0){
       ctx.fillStyle = '#000';
       ctx.fillRect(0,0, levelWidth, levelHeight);
       ctx.font = '30px Comic Sans MS';
       ctx.fillStyle = 'red';
       ctx.textAlign = 'center';
-      ctx.fillText(user.name + ', YOU WON!', levelWidth / 2 , 150);
-      ctx.fillText('Your score: ' + user.score, levelWidth / 2 , 300);
+      ctx.fillText('Hi ' + user.name + '!', levelWidth / 2 , 150);
+      ctx.fillText('Welcome to Easteros', levelWidth / 2 , 300);
+      ctx.font = '20px Comic Sans MS';
+      ctx.fillText('Press spacebar to continue (' + user.lives + ' lives left), return to begin', levelWidth / 2 , 450);
     }
-    else {
-      if (end.s === 0) end.s = user.score;
-      ctx.fillStyle = '#000';
-      ctx.fillRect(0,0, levelWidth, levelHeight);
-      ctx.font = '30px Comic Sans MS';
-      ctx.fillStyle = 'red';
-      ctx.textAlign = 'center';
-      ctx.fillText('YOU LOSE! GAME OVER!', levelWidth / 2 , 150);
-      ctx.fillText('Your score: ' + end.s, levelWidth / 2 , 300);
-      user.addScoreToLeaderboard();
-      user.score = 0;
-    }
-    ctx.font = '20px Comic Sans MS';
-    ctx.fillText('Press spacebar to continue (' + user.lives + ' lives left), return to play again!', levelWidth / 2 , 450);
   }
 };
 
