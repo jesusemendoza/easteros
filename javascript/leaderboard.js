@@ -10,21 +10,6 @@ if (!localStorage.leaderboard) localStorage.leaderboard = JSON.stringify([new Sc
 new Score ('Liza', 7000), new Score ('Scott Was Here', 4200), new Score ('Brent', 2000),
 new Score ('Charity case', 1000), new Score ('no', 300)]);
 var scoringMethods = {
-  add: function() {
-    var arr = JSON.parse (localStorage.leaderboard);
-    var newArr = [];
-    var added = false;
-    for (var i in arr){
-      if (arr[i].score < localStorage.score && added === false){
-        newArr.push(new Score (localStorage.name, localStorage.score));
-        added = true;
-      }
-      newArr.push(arr[i]);
-    }
-    if (added) newArr.pop();
-    localStorage.leaderboard = JSON.stringify (newArr);
-  },
-
   display: function() {
     var lb = JSON.parse (localStorage.leaderboard);
     console.log(lb);
