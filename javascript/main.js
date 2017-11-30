@@ -15,20 +15,20 @@ var user = {
   },
   score: 0,
   name: '',
-   addScoreToLeaderboard: function() {
-     var arr = JSON.parse (localStorage.leaderboard);
-     var newArr = [];
-     var added = false;
-     for (var i in arr){
-       if (arr[i].score < user.score && !added){
-         newArr.push(new Score (user.name, user.score));
-         added = true;
-       }
-       newArr.push(arr[i]);
-     }
-     if (added) newArr.pop();
-     localStorage.leaderboard = JSON.stringify (newArr);
-   },
+  addScoreToLeaderboard: function() {
+    var arr = JSON.parse (localStorage.leaderboard);
+    var newArr = [];
+    var added = false;
+    for (var i in arr){
+      if (arr[i].score < user.score && !added){
+        newArr.push(new Score (user.name, user.score));
+        added = true;
+      }
+      newArr.push(arr[i]);
+    }
+    if (added) newArr.pop();
+    localStorage.leaderboard = JSON.stringify (newArr);
+  },
 };
 
 user.namePer();
@@ -192,11 +192,11 @@ Images.prototype.render = function(){
 };
 
 function renderScore() {
-   ctx.font = '30px Comic Sans MS';
-   ctx.fillStyle = 'red';
-   ctx.textAlign = 'left';
-   ctx.fillText('Score: ' + user.score, 50, 50);
- }
+  ctx.font = '30px Comic Sans MS';
+  ctx.fillStyle = 'red';
+  ctx.textAlign = 'left';
+  ctx.fillText('Score: ' + user.score, 50, 50);
+}
 
 function renderLevel() {
   for (var i = 0; i < levelRows; i++) {
@@ -264,31 +264,27 @@ window.onload = function(){
 
 var thing = document.getElementById('form1');
 function onSubmit(event) {
-  event.preventDefault();
   var text = event.target.userName.value;
   console.log(text);
   localStorage.name = text;
-
 }
 
 
 var end = {
   game: function (){
     end.render();
-
-    if (keys[32]) end.setUp();//if spaceBar pushed
-
-
+    if (keys[32]) end.setUp();
   },
 
   setUp: function (){
     //if user decides to play another game, this will set it up
     if (hero.win){
-      user.addScoreToLeaderboard();
-      user.score = 0;
       if (levelSelect < maps.length) levelSelect++;
       else levelSelect = 0;
       //TODO you win screen, stop game loop, reset
+    } else {
+      user.addScoreToLeaderboard();
+      user.score = 0;
     }
     hero.x = 65;
     hero.y = 300;
