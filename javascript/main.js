@@ -75,14 +75,14 @@ var Hero = function(x, y, ctx,id){
   this.ctx = ctx;
   this.velY = 0;
   this.velX = 0;
-  this.width = 32;
-  this.height = 32;
+  this.width = 40;
+  this.height = 40;
   this.win = false;
   this.playing = true;
   this.sprites = document.getElementById(id);
   this.onground = false;
 };
-var hero = new Hero(150, 250, ctx,'hero1');
+var hero = new Hero(65, 315, ctx,'hero1');
 
 // Key Check
 var keys = {};
