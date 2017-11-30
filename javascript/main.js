@@ -221,6 +221,10 @@ window.onload = function(){
   var clouds2 = new Environment(c, ctx, -0.1, 'bg', 700, -150);
   var clouds3 = new Environment(c, ctx, 0.1, 'bg', 300, -150);
   var clouds4 = new Environment(c, ctx, -0.05, 'bg', 200, 0);
+  var clouds5 = new Environment(c, ctx, 0.1, 'bg', 200, 285);
+  var clouds6 = new Environment(c, ctx, -0.06, 'bg', 400, 270);
+  var clouds7 = new Environment(c, ctx, 0.08, 'bg', 640, 300);
+  var clouds8 = new Environment(c, ctx, -0.03, 'bg', -200, 300);
   var ufo = new Environment(c, ctx, 0.5,'ufo', -500, 0);
   var background = new Images (0,0,ctx,'fg');
   gameLoop();
@@ -242,6 +246,14 @@ window.onload = function(){
       hero.render();
       clouds1.update();
       clouds1.render();
+      clouds5.update();
+      clouds5.render();
+      clouds6.update();
+      clouds6.render();
+      clouds7.update();
+      clouds7.render();
+      clouds8.update();
+      clouds8.render();
       renderScore();
     } else {
       end.game();
