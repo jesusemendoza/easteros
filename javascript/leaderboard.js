@@ -6,7 +6,7 @@ function Score (name, score) {
 }
 
 localStorage.score = 6;
-if (!localStorage.leaderboard) localStorage.leaderboard = JSON.stringify([new Score ('Jesus', 6000), new Score ('Cody', 5600), new Score ('Liza', 3000), new Score ('Brent', 2000), new Score ('Scott Was Here', 42), new Score ('Charity case', 5), new Score ('violet', 4)]);
+if (!localStorage.leaderboard) localStorage.leaderboard = JSON.stringify([new Score ('Jesus', 9000), new Score ('Cody', 9000), new Score ('Liza', 7000), new Score ('Scott Was Here', 4200), new Score ('Brent', 2000), new Score ('Charity case', 1000), new Score ('You haven't even tried', 300)]);
 var scoringMethods = {
   add: function() {
     var arr = JSON.parse (localStorage.leaderboard);

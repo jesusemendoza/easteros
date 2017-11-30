@@ -1,6 +1,6 @@
 'use strict';
 
-if (!localStorage.leaderboard) localStorage.leaderboard = JSON.stringify([new Score ('Jesus', 6000), new Score ('Cody', 5600), new Score ('Liza', 3000), new Score ('Brent', 2000), new Score ('Scott Was Here', 42), new Score ('Charity case', 5), new Score ('violet', 4)]);
+if (!localStorage.leaderboard) localStorage.leaderboard = JSON.stringify([new Score ('Jesus', 9000), new Score ('Cody', 9000), new Score ('Liza', 7000), new Score ('Scott Was Here', 4200), new Score ('Brent', 2000), new Score ('Charity case', 1000), new Score ('You haven't even tried', 300)]);
 function Score (name, score) {
   this.name = name;
   this.score = score;
@@ -131,7 +131,7 @@ function move(p) {
         b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
           level[i][j] = 0;
-          user.score += 100; //coinvalue		 +
+          user.score += 100 * (1 + 0.5 * levelSelect * levelSelect); //coinvalue		 +
         }
       } else if (level[i][j] === 3) {
         let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
