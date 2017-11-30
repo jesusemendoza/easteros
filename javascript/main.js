@@ -31,6 +31,7 @@ var user = {
     if (added) newArr.pop();
     localStorage.leaderboard = JSON.stringify (newArr);
   },
+  lives: 3,
 };
 user.namePer();
 
@@ -198,6 +199,7 @@ function renderUserName() {
   ctx.fillStyle = 'red';
   ctx.textAlign = 'left';
   ctx.fillText(user.name, 900, 50);
+  ctx.fillText('lives left' + user.lives, 900, 87);
 }
 
 function renderLevel() {
@@ -282,15 +284,13 @@ var end = {
   s: 0,
   game: function (){
     end.render();
-    if (keys[32]) end.setUp();
+    if (keys[32] && user.lives > 0) end.setUp();
   },
 
   setUp: function (){
-    if (hero.win){
-      // levelSelect++;
-    } else {
-      //TODO life functionality
-    }
+
+    if (!hero.win) user.lives--;
+
     hero.x = 65;
     hero.y = 300;
     level = maps[levelSelect];
@@ -308,7 +308,7 @@ var end = {
         ctx.fillText(user.name + ', YOU WON!', levelWidth / 2 , 150);
         ctx.fillText('Your score: ' + user.score, levelWidth / 2 , 300);
         ctx.font = '20px Comic Sans MS';
-        ctx.fillText('Press spacebar to continue, return to play again!', levelWidth / 2 , 450);
+        ctx.fillText('Press spacebar to continue (' + user.lives + ' lives left), return to play again!', levelWidth / 2 , 450);
       } else {
         if (user.score !== 0 && end.s !== user.score) end.s = user.score;
         ctx.fillStyle = '#000';
@@ -332,7 +332,7 @@ var end = {
       ctx.fillText('Hi ' + user.name + '!', levelWidth / 2 , 150);
       ctx.fillText('Welcome to Easteros', levelWidth / 2 , 300);
       ctx.font = '20px Comic Sans MS';
-      ctx.fillText('Press spacebar to continue to begin', levelWidth / 2 , 450);
+      ctx.fillText('Press spacebar to continue (' + user.lives + ' lives left), return to begin', levelWidth / 2 , 450);
     }
   }
 };
