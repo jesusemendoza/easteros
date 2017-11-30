@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|VT323" rel="stylesheet">
 </head>
-<body>
+<body class="body">
   <header id="home" class="mainheader">
     <nav class="topnav">
       <a class="active" href="index.html">Home</a>
@@ -18,11 +18,11 @@
     <section>
     <div class="howto">
       <p class="welcome">Welcome to Easteros The Game!</p>
-      <p class="controls">Here's how to play:</p>
+      <!--<p class="controls">Here's how to play:</p>
       <p class="controls">W key = Jump</p>
       <p class="controls">D key = Forward</p>
-      <p class="controls">A key = Backwards</p>
-      <p class="controls">Please enter your name for the game to start.</p>
+      <p class="controls">A key = Backwards</p> -->
+      <p class="name">Please enter your name for the game to start.</p>
     </div>
       <form id="form1">
       <input type="text" id="userName" placeholder="Name" required="required">
@@ -30,10 +30,12 @@
       </form>
    <div class="username" id="userName"></div>
     </section>
-  </main>
+
   <div class="canvas-size">
     <canvas id="canvas"></canvas>
   </div>
+</main>
+
   <img class= "img-no-display" src="img/mario.png" id="hero1"/>
   <img class= "img-no-display" src="img/cloud.png" id="bg"/>
   <img class= "img-no-display" src="img/newbackground.png" id="fg"/>
