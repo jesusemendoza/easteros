@@ -1,0 +1,32 @@
+body {
+  background-image: url(img/header.jpg);
+  background-position: center;
+  position: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-height: 400px;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #F8F8FF;
+  opacity: 0.7;
+  z-index: 1;
+  text-align: center;
+}
+
+.topnav a {
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 70px;
+  font-family: 'VT323', monospace;
+  color: rgba(242, 210, 130, .8);
+  text-shadow: 1px 1px #000;
+  letter-spacing: 5px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}

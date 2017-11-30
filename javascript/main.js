@@ -1,5 +1,6 @@
 'use strict';
 
+if (!localStorage.leaderboard) localStorage.leaderboard = JSON.stringify([new Score ('Jesus', 6000), new Score ('Cody', 5600), new Score ('Liza', 3000), new Score ('Brent', 2000), new Score ('Scott Was Here', 42), new Score ('Charity case', 5), new Score ('violet', 4)]);
 function Score (name, score) {
   this.name = name;
   this.score = score;
@@ -9,8 +10,7 @@ var levelSelect = 0;
 var user = {
   namePer: function(){
     var name = localStorage.name;
-    var userName = document.getElementById('userName');
-    userName.textContent = name ;
+    if (!name) name = 'anonymous';
     user.name = name;
   },
   score: 0,
@@ -30,9 +30,7 @@ var user = {
     localStorage.leaderboard = JSON.stringify (newArr);
   },
 };
-
 user.namePer();
-
 
 var Environment = function (c, ctx, speed, id, x, y){
   this.c = c;
@@ -81,9 +79,8 @@ var Hero = function(x, y, ctx,id){
   this.playing = true;
   this.sprites = document.getElementById(id);
   this.onground = false;
-  var self = this;
 };
-var hero = new Hero(150, 250, ctx,'hero1'); //bad practice,for debug. came from onload stuff
+var hero = new Hero(150, 250, ctx,'hero1');
 
 // Key Check
 var keys = {};
@@ -97,11 +94,12 @@ function collisionTest(a, b) {
 }
 
 function move(p) {
+  //p is the hero
   // x axis
+  var a = {x: p.x + p.velX, y: p.y, w: p.width, h: p.height};
   for (var i = 0; i < levelRows; i++) {
     for (var j = 0; j < levelCols; j++) {
-      if (level[i][j] == 1) {
-        var a = {x: p.x + p.velX, y: p.y, w: p.width, h: p.height};
+      if (level[i][j] === 1) {
         var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
           if (p.velX < 0) {
@@ -115,13 +113,12 @@ function move(p) {
   }
   p.x += p.velX;
   // y axis
-
   if (hero.y >= 650) hero.playing = false;
   for (let i = 0; i < levelRows; i++) {
     for (let j = 0; j < levelCols; j++) {
       if (level[i][j] === 1) {
-        let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
-        let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
+        a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
+        b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
           if (p.velY < 0) {
             p.velY = b.y + b.h - p.y;       // Up Collision
@@ -130,21 +127,16 @@ function move(p) {
           }
         }
       } else if (level[i][j] === 2) {
-        var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
-        var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
+        a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
+        b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
-          level[i][j] = 0;         // 2 blocks reset hero.x and y to the starting position
+          level[i][j] = 0;
           user.score += 100; //coinvalue		 +
-
-          // 2 blocks reset hero.x and y to the starting position
-          // hero.x = tileSize * 3;
-          // hero.y = tileSize * 26;
         }
       } else if (level[i][j] === 3) {
         let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
         let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
-          // Goal block sets hero.win to true for win condition
           hero.win = true;
           hero.playing = false;
         }
@@ -161,8 +153,8 @@ Hero.prototype.update = function(){
   var expectedYPos = this.velY + this.y;
   move(hero);
   this.onGround = (expectedYPos > this.y);
-  if (expectedYPos != this.y) {this.velY = 0;}    // hero.velY is 0 on the ground
-  if (this.onGround && keys[87]) {this.velY = -10;}  // Jump
+  if (expectedYPos !== this.y) this.velY = 0;    // hero.velY is 0 on the ground and only on ground
+  if (this.onGround && keys[87]) this.velY = -10;  // Jump
 };
 
 Hero.prototype.render = function(){
@@ -203,29 +195,25 @@ function renderLevel() {
     for (var j = 0; j < levelCols; j++) {
       if (level[i][j] === 1) {
         // Solid Blocks
-        ctx.fillStyle = "rgb(63,42,20)";
+        ctx.fillStyle = 'rgb(63,42,20)';
         ctx.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
       } else if (level[i][j] === 2) {
         // Coin Blocks
-        ctx.fillStyle = "gold";
+        ctx.fillStyle = 'gold';
         ctx.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
       } else if (level[i][j] === 3) {
         // Goal Block
-        ctx.fillStyle = "green";
+        ctx.fillStyle = 'green';
         ctx.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
       }
     }
   }
 }
 
-
-var hero = new Hero(150, 250, ctx,'hero1');
-
 window.onload = function(){
   var c = document.getElementById('canvas');
   c.width = 1040;
   c.height = 510;
-
   var ctx = c.getContext('2d');
   var clouds1 = new Environment(c, ctx, 0.3, 'bg', 0, -100);
   var clouds2 = new Environment(c, ctx, -0.1, 'bg', 700, -150);
@@ -233,9 +221,7 @@ window.onload = function(){
   var clouds4 = new Environment(c, ctx, -0.05, 'bg', 200, 0);
   var ufo = new Environment(c, ctx, 0.5,'ufo', -500, 0);
   var background = new Images (0,0,ctx,'fg');
-  // var log = new Images (0,0,ctx,'fg');
   gameLoop();
-
   function gameLoop(){
     ctx.clearRect(0,0,c.width,c.height);
     if (hero.playing){
@@ -269,7 +255,6 @@ function onSubmit(event) {
   localStorage.name = text;
 }
 
-
 var end = {
   game: function (){
     end.render();
@@ -277,11 +262,9 @@ var end = {
   },
 
   setUp: function (){
-    //if user decides to play another game, this will set it up
     if (hero.win){
       if (levelSelect < maps.length) levelSelect++;
       else levelSelect = 0;
-      //TODO you win screen, stop game loop, reset
     } else {
       user.addScoreToLeaderboard();
       user.score = 0;
@@ -291,7 +274,6 @@ var end = {
     level = maps[levelSelect];
     hero.playing = true;
     hero.win = false;
-    //TODO initiate game loop
   },
   render: function (){
     if (hero.win){
