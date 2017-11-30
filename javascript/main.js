@@ -258,7 +258,7 @@ window.onload = function(){
     } else {
       end.game();
     }
-    if (keys[32]) window.location.reload();
+    if (keys[13]) window.location.reload();
     window.requestAnimationFrame(gameLoop);
   }
 };
@@ -273,7 +273,7 @@ function onSubmit(event) {
 var end = {
   game: function (){
     end.render();
-    if (keys[83]) end.setUp();
+    if (keys[32]) end.setUp();
   },
 
   setUp: function (){
@@ -309,7 +309,7 @@ var end = {
       ctx.fillText('Your score: ' + user.score, levelWidth / 2 , 300);
     }
     ctx.font = '20px Comic Sans MS';
-    ctx.fillText('Press s to continue, spacebar to play again!', levelWidth / 2 , 450);
+    ctx.fillText('Press spacebar to continue, return to play again!', levelWidth / 2 , 450);
   }
 };
 
