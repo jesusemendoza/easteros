@@ -278,6 +278,7 @@ function onSubmit(event) {
 }
 
 var end = {
+  s: 0,
   game: function (){
     end.render();
     if (keys[32]) end.setUp();
@@ -287,8 +288,7 @@ var end = {
     if (hero.win){
       levelSelect++;
     } else {
-      user.addScoreToLeaderboard();
-      user.score = 0;
+      //TODO life functionality
     }
     hero.x = 65;
     hero.y = 300;
@@ -307,13 +307,16 @@ var end = {
       ctx.fillText('Your score: ' + user.score, levelWidth / 2 , 300);
     }
     else {
+      if (end.s === 0) end.s = user.score;
       ctx.fillStyle = '#000';
       ctx.fillRect(0,0, levelWidth, levelHeight);
       ctx.font = '30px Comic Sans MS';
       ctx.fillStyle = 'red';
       ctx.textAlign = 'center';
       ctx.fillText('YOU LOSE! GAME OVER!', levelWidth / 2 , 150);
-      ctx.fillText('Your score: ' + user.score, levelWidth / 2 , 300);
+      ctx.fillText('Your score: ' + end.s, levelWidth / 2 , 300);
+      user.addScoreToLeaderboard();
+      user.score = 0;
     }
     ctx.font = '20px Comic Sans MS';
     ctx.fillText('Press spacebar to continue, return to play again!', levelWidth / 2 , 450);
