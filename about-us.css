@@ -94,6 +94,16 @@
   background-image: url(img/jesus.png);
 }
 
+.biopic, #biopicCody {
+  -webkit-border-radius: 108px;
+  -moz-border-radius: 108px;
+  border-radius: 108px;
+  border: 8px solid black;
+  width: 200px;
+  height: 200px;
+  background-image: url(img/cody.png);
+}
+
 .biopic span {
   -webkit-border-radius: 108px;
   -moz-border-radius: 108px;
