@@ -310,30 +310,30 @@ var end = {
         ctx.font = '20px Comic Sans MS';
         ctx.fillText('Press spacebar to continue, return to play again!', levelWidth / 2 , 450);
       } else {
-        if (end.s === 0 && end.s !== user.score) end.s = user.score;
-          ctx.fillStyle = '#000';
-          ctx.fillRect(0,0, levelWidth, levelHeight);
-          ctx.font = '30px Comic Sans MS';
-          ctx.fillStyle = 'red';
-          ctx.textAlign = 'center';
-          ctx.fillText('YOU LOSE! GAME OVER!', levelWidth / 2 , 150);
-          ctx.fillText('Your score: ' + end.s, levelWidth / 2 , 300);
-          user.addScoreToLeaderboard();
-          user.score = 0;
+        if (user.score !== 0 && end.s !== user.score) end.s = user.score;
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0,0, levelWidth, levelHeight);
+        ctx.font = '30px Comic Sans MS';
+        ctx.fillStyle = 'red';
+        ctx.textAlign = 'center';
+        ctx.fillText('YOU LOSE! GAME OVER!', levelWidth / 2 , 150);
+        ctx.fillText('Your score: ' + end.s, levelWidth / 2 , 300);
+        user.addScoreToLeaderboard();
+        user.score = 0;
       }
     }
 
-  if (levelSelect === 0){
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0,0, levelWidth, levelHeight);
-    ctx.font = '30px Comic Sans MS';
-    ctx.fillStyle = 'red';
-    ctx.textAlign = 'center';
-    ctx.fillText('Hi '+ user.name + '!', levelWidth / 2 , 150);
-    ctx.fillText('Welcome to Easteros', levelWidth / 2 , 300);
-    ctx.font = '20px Comic Sans MS';
-    ctx.fillText('Press spacebar to continue to begin', levelWidth / 2 , 450);
-  }
+    if (levelSelect === 0){
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0,0, levelWidth, levelHeight);
+      ctx.font = '30px Comic Sans MS';
+      ctx.fillStyle = 'red';
+      ctx.textAlign = 'center';
+      ctx.fillText('Hi ' + user.name + '!', levelWidth / 2 , 150);
+      ctx.fillText('Welcome to Easteros', levelWidth / 2 , 300);
+      ctx.font = '20px Comic Sans MS';
+      ctx.fillText('Press spacebar to continue to begin', levelWidth / 2 , 450);
+    }
   }
 };
 
