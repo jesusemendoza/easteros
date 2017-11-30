@@ -101,7 +101,7 @@ function move(p) {
   // x axis
   for (var i = 0; i < levelRows; i++) {
     for (var j = 0; j < levelCols; j++) {
-      if (level[i][j] == 1) {
+      if (level[i][j] === 1) {
         var a = {x: p.x + p.velX, y: p.y, w: p.width, h: p.height};
         var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
@@ -116,7 +116,6 @@ function move(p) {
   }
   p.x += p.velX;
   // y axis
-
   if (hero.y >= 650) hero.playing = false;
   for (let i = 0; i < levelRows; i++) {
     for (let j = 0; j < levelCols; j++) {
@@ -134,18 +133,13 @@ function move(p) {
         var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
         var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
-          level[i][j] = 0;         // 2 blocks reset hero.x and y to the starting position
+          level[i][j] = 0;
           user.score += 100; //coinvalue		 +
-
-          // 2 blocks reset hero.x and y to the starting position
-          // hero.x = tileSize * 3;
-          // hero.y = tileSize * 26;
         }
       } else if (level[i][j] === 3) {
         let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
         let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
-          // Goal block sets hero.win to true for win condition
           hero.win = true;
           hero.playing = false;
         }
@@ -162,7 +156,7 @@ Hero.prototype.update = function(){
   var expectedYPos = this.velY + this.y;
   move(hero);
   this.onGround = (expectedYPos > this.y);
-  if (expectedYPos != this.y) {this.velY = 0;}    // hero.velY is 0 on the ground
+  if (expectedYPos != this.y) {this.velY = 0;}    // hero.velY is 0 on the ground and only on ground
   if (this.onGround && keys[87]) {this.velY = -10;}  // Jump
 };
 
@@ -204,15 +198,15 @@ function renderLevel() {
     for (var j = 0; j < levelCols; j++) {
       if (level[i][j] === 1) {
         // Solid Blocks
-        ctx.fillStyle = "rgb(63,42,20)";
+        ctx.fillStyle = 'rgb(63,42,20)';
         ctx.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
       } else if (level[i][j] === 2) {
         // Coin Blocks
-        ctx.fillStyle = "gold";
+        ctx.fillStyle = 'gold';
         ctx.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
       } else if (level[i][j] === 3) {
         // Goal Block
-        ctx.fillStyle = "green";
+        ctx.fillStyle = 'green';
         ctx.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
       }
     }
@@ -234,7 +228,6 @@ window.onload = function(){
   var clouds4 = new Environment(c, ctx, -0.05, 'bg', 200, 0);
   var ufo = new Environment(c, ctx, 0.5,'ufo', -500, 0);
   var background = new Images (0,0,ctx,'fg');
-  // var log = new Images (0,0,ctx,'fg');
   gameLoop();
 
   function gameLoop(){
@@ -270,7 +263,6 @@ function onSubmit(event) {
   localStorage.name = text;
 }
 
-
 var end = {
   game: function (){
     end.render();
@@ -278,11 +270,9 @@ var end = {
   },
 
   setUp: function (){
-    //if user decides to play another game, this will set it up
     if (hero.win){
       if (levelSelect < maps.length) levelSelect++;
       else levelSelect = 0;
-      //TODO you win screen, stop game loop, reset
     } else {
       user.addScoreToLeaderboard();
       user.score = 0;
@@ -292,7 +282,6 @@ var end = {
     level = maps[levelSelect];
     hero.playing = true;
     hero.win = false;
-    //TODO initiate game loop
   },
   render: function (){
     if (hero.win){

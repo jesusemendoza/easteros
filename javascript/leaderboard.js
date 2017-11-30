@@ -5,13 +5,6 @@ function Score (name, score) {
   this.score = score;
 }
 
-function namePer() {
-  var name = localStorage.name;
-  var userName = document.getElementById('userName');
-  userName.textContent = name ;
-}
-namePer();
-
 localStorage.score = 6;
 if (!localStorage.leaderboard) localStorage.leaderboard = JSON.stringify([new Score ('Jesus', 6000), new Score ('Cody', 5600), new Score ('Liza', 3000), new Score ('Brent', 2000), new Score ('Scott Was Here', 42), new Score ('Charity case', 5), new Score ('violet', 4)]);
 var scoringMethods = {
