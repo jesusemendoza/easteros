@@ -192,6 +192,13 @@ function renderScore() {
   ctx.fillText('Score: ' + user.score, 50, 50);
 }
 
+function renderUserName() {
+  ctx.font = '30px Comic Sans MS';
+  ctx.fillStyle = 'red';
+  ctx.textAlign = 'left';
+  ctx.fillText(user.name, 900, 50);
+}
+
 function renderLevel() {
   for (var i = 0; i < levelRows; i++) {
     for (var j = 0; j < levelCols; j++) {
@@ -255,6 +262,7 @@ window.onload = function(){
       clouds8.update();
       clouds8.render();
       renderScore();
+      renderUserName();
     } else {
       end.game();
     }
@@ -265,7 +273,6 @@ window.onload = function(){
 
 var thing = document.getElementById('form1');
 function onSubmit(event) {
-  event.preventDefault();
   var text = event.target.userName.value;
   localStorage.name = text;
 }
