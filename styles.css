@@ -1,25 +1,14 @@
-/*body {
-  padding: 0;
-  margin: 0;
-  background-color: #363F43;
-  background-image: url(img/header.jpg);
-  background-position:center;
-  background-repeat:no-repeat;
-  background-size: cover;
-}*/
-
 .img-no-display {
   display: none;
 }
 
-body {
+.body {
   display: block;
   position: relative;
   margin: 0;
-  
 }
 
-body::after {
+.body::after {
   content: "";
   background: url(img/header.jpg);
   background-position:center;
@@ -35,33 +24,15 @@ body::after {
   margin: 0;
 }
 
-/*main {
-  background-image: url(img/header.jpg);
-  background-position:center;
-  background-repeat:no-repeat;
-  background-size: cover;
-  opacity: 0.5;
-  position: relative; *
-}
-
-mainheader {
-  background-image: url(img/header.jpg);
-  background-position: center;
-  margin-bottom: 8px;
-  padding: 20%;
-  background-size:cover;
-  position: relative; */
-}
-
 .topnav {
   overflow: hidden;
-  background-color: black;
+  background-color: gray;
   position: absolute;
   background-position: center;
   top: 0%;
   width: 100%;
   right: .1%;
-  opacity: 1;
+  opacity: .6;
   z-index: 10;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -83,21 +54,10 @@ mainheader {
   color: black;
 }
 
-/*.h6main {
-  position: absolute;
-  right: 240px;
-  bottom: -35px;
-  font-size: 60px;
-  font-family: 'VT323', monospace;
-  color: rgba(242, 210, 130, .8);
-  text-shadow: 2px 2px #000;
-  letter-spacing: 10px;
-}*/
-
 .canvas-size{
   text-align: center;
   z-index: 10;
-  padding-bottom: 10%;
+  padding-bottom: 10px;
 }
 
 input {
@@ -118,8 +78,7 @@ button {
   font-size: 20px;
 }
 
-button:hover
-{
+button:hover {
   -webkit-transform: rotateZ(-30deg);
   -ms-transform: rotateZ(-30deg);
   transform: rotateZ(-30deg);
@@ -145,7 +104,7 @@ button:hover
   font-family: 'Barlow Condensed', sans-serif;
   text-shadow: 1px 1px #000;
   font-size: 40px;
-  padding: 0%;
+  padding-top: 50px;
   margin: 0%;
 }
 
@@ -171,33 +130,4 @@ button:hover
 
 .about-border {
   border-top: 2px solid rgba(0, 0, 0, .2);
-}
-
-.footer-class {
-  padding-bottom: 150px;
-}
-
-#main-table {
-  font-family: 'VT323', monospace;
-  color: black;
-  font-size: 35px;
-  border-collapse: collapse;
-  background-color: #9a9fa1;
-  text-align: center;
-  margin:auto;
-}
-
-table, td, th {
-  border: 1px solid black;
-  text-align: left;
-  padding: 15px;
-  empty-cells: show;
-}
-
-tr:nth-child(even) {
-  background-color: #72787b;
-}
-
-.leaderboard {
-  margin: 10%;
 }
