@@ -79,9 +79,8 @@ var Hero = function(x, y, ctx,id){
   this.playing = true;
   this.sprites = document.getElementById(id);
   this.onground = false;
-  var self = this;
 };
-var hero = new Hero(150, 250, ctx,'hero1'); //bad practice,for debug. came from onload stuff
+var hero = new Hero(150, 250, ctx,'hero1');
 
 // Key Check
 var keys = {};
@@ -95,11 +94,12 @@ function collisionTest(a, b) {
 }
 
 function move(p) {
+  //p is the hero
   // x axis
+  var a = {x: p.x + p.velX, y: p.y, w: p.width, h: p.height};
   for (var i = 0; i < levelRows; i++) {
     for (var j = 0; j < levelCols; j++) {
       if (level[i][j] === 1) {
-        var a = {x: p.x + p.velX, y: p.y, w: p.width, h: p.height};
         var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
           if (p.velX < 0) {
@@ -117,8 +117,8 @@ function move(p) {
   for (let i = 0; i < levelRows; i++) {
     for (let j = 0; j < levelCols; j++) {
       if (level[i][j] === 1) {
-        let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
-        let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
+        a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
+        b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
           if (p.velY < 0) {
             p.velY = b.y + b.h - p.y;       // Up Collision
@@ -127,8 +127,8 @@ function move(p) {
           }
         }
       } else if (level[i][j] === 2) {
-        var a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
-        var b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
+        a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
+        b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
           level[i][j] = 0;
           user.score += 100; //coinvalue		 +
@@ -153,8 +153,8 @@ Hero.prototype.update = function(){
   var expectedYPos = this.velY + this.y;
   move(hero);
   this.onGround = (expectedYPos > this.y);
-  if (expectedYPos != this.y) {this.velY = 0;}    // hero.velY is 0 on the ground and only on ground
-  if (this.onGround && keys[87]) {this.velY = -10;}  // Jump
+  if (expectedYPos !== this.y) this.velY = 0;    // hero.velY is 0 on the ground and only on ground
+  if (this.onGround && keys[87]) this.velY = -10;  // Jump
 };
 
 Hero.prototype.render = function(){
@@ -210,14 +210,10 @@ function renderLevel() {
   }
 }
 
-
-var hero = new Hero(150, 250, ctx,'hero1');
-
 window.onload = function(){
   var c = document.getElementById('canvas');
   c.width = 1040;
   c.height = 510;
-
   var ctx = c.getContext('2d');
   var clouds1 = new Environment(c, ctx, 0.3, 'bg', 0, -100);
   var clouds2 = new Environment(c, ctx, -0.1, 'bg', 700, -150);
@@ -226,7 +222,6 @@ window.onload = function(){
   var ufo = new Environment(c, ctx, 0.5,'ufo', -500, 0);
   var background = new Images (0,0,ctx,'fg');
   gameLoop();
-
   function gameLoop(){
     ctx.clearRect(0,0,c.width,c.height);
     if (hero.playing){
