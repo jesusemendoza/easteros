@@ -241,6 +241,7 @@ window.onload = function(){
       clouds1.update();
       clouds1.render();
       renderScore();
+      if (keys[32]) window.location.reload();
     } else {
       end.game();
     }
@@ -250,15 +251,15 @@ window.onload = function(){
 
 var thing = document.getElementById('form1');
 function onSubmit(event) {
+  event.preventDefault();
   var text = event.target.userName.value;
-  console.log(text);
   localStorage.name = text;
 }
 
 var end = {
   game: function (){
     end.render();
-    if (keys[32]) end.setUp();
+    if (keys[87]) end.setUp();
   },
 
   setUp: function (){
@@ -294,7 +295,7 @@ var end = {
       ctx.fillText('YOU LOSE! GAME OVER!', levelWidth / 2 , 150);
       ctx.fillText('Your score: ' + user.score, levelWidth / 2 , 300);
     }
-    ctx.fillText('Press Spacebar to play again!', levelWidth / 2 , 450);
+    ctx.fillText('Press w to play again!', levelWidth / 2 , 450);
   }
 };
 
