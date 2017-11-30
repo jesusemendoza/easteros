@@ -326,13 +326,18 @@ var end = {
     if (levelSelect === 0){
       ctx.fillStyle = '#000';
       ctx.fillRect(0,0, levelWidth, levelHeight);
-      ctx.font = '30px Comic Sans MS';
+      ctx.font = '40px VT323';
       ctx.fillStyle = 'red';
       ctx.textAlign = 'center';
-      ctx.fillText('Hi ' + user.name + '!', levelWidth / 2 , 150);
-      ctx.fillText('Welcome to Easteros', levelWidth / 2 , 300);
-      ctx.font = '20px Comic Sans MS';
-      ctx.fillText('Press spacebar to continue (' + user.lives + ' lives left), return to begin', levelWidth / 2 , 450);
+      ctx.fillText('Hi ' + user.name + '!', levelWidth / 2 , 100);
+      ctx.fillText('Welcome to Easteros', levelWidth / 2 , 150);
+      ctx.fillText('Press spacebar to continue', levelWidth / 2 , 400);
+      ctx.font = '30px VT323';
+      ctx.fillText('A = Left', levelWidth / 2 , 230);
+      ctx.fillText('D = Right', levelWidth / 2 , 290);
+      ctx.fillText('W = Jump', levelWidth / 2 , 350);
+      ctx.fillStyle = 'white';
+      ctx.fillText('Lives: '+ user.lives, levelWidth / 2 , 450);
     }
   }
 };
