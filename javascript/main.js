@@ -20,15 +20,13 @@ var user = {
   addScoreToLeaderboard: function() {
     var arr = JSON.parse (localStorage.leaderboard);
     var newArr = [];
-    var added = false;
     for (var i in arr){
-      if (arr[i].score < user.score && !added){
-        newArr.push(new Score (user.name, user.score));
-        added = true;
+      if (arr[i].score < localStorage.score && newArr.length === arr.length){
+        newArr.push(new Score (localStorage.name, localStorage.score));
       }
       newArr.push(arr[i]);
     }
-    if (added) newArr.pop();
+    if (newArr.length > arr.length) newArr.pop();
     localStorage.leaderboard = JSON.stringify (newArr);
   },
 };
