@@ -1,6 +1,8 @@
 'use strict';
 
-if (!localStorage.leaderboard) localStorage.leaderboard = JSON.stringify([new Score ('Jesus', 9000), new Score ('Cody', 9000), new Score ('Liza', 7000), new Score ('Scott Was Here', 4200), new Score ('Brent', 2000), new Score ('Charity case', 1000), new Score ('You haven't even tried', 300)]);
+if (!localStorage.leaderboard) localStorage.leaderboard = JSON.stringify([new Score ('Jesus', 9000), new Score ('Cody', 9000),
+new Score ('Liza', 7000), new Score ('Scott Was Here', 4200), new Score ('Brent', 2000),
+new Score ('Charity case', 1000), new Score ('no', 300)]);
 function Score (name, score) {
   this.name = name;
   this.score = score;
