@@ -15,7 +15,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  position: absolute;
+  position: fixed;
   z-index: -1;
   margin: 0;
 }
@@ -68,7 +68,7 @@
   -webkit-border-radius: 108px;
   -moz-border-radius: 108px;
   border-radius: 108px;
-  border: 8px solid black;
+  border: 8px solid #303030;
   width: 200px;
   height: 200px;
   background-image: url(img/liza.png);
@@ -78,7 +78,7 @@
   -webkit-border-radius: 108px;
   -moz-border-radius: 108px;
   border-radius: 108px;
-  border: 8px solid black;
+  border: 8px solid #303030;
   width: 200px;
   height: 200px;
   background-image: url(img/brent.png);
@@ -88,7 +88,7 @@
   -webkit-border-radius: 108px;
   -moz-border-radius: 108px;
   border-radius: 108px;
-  border: 8px solid black;
+  border: 8px solid #303030;
   width: 200px;
   height: 200px;
   background-image: url(img/jesus.png);
@@ -98,7 +98,7 @@
   -webkit-border-radius: 108px;
   -moz-border-radius: 108px;
   border-radius: 108px;
-  border: 8px solid black;
+  border: 8px solid #303030;
   width: 200px;
   height: 200px;
   background-image: url(img/cody.png);
@@ -113,11 +113,11 @@
   display: block;
   text-indent: -5000px;
   line-height: 200px;
-  font-family: Arial, sans-serif;
+  font-family: 'VT323', monospace;
   font-size: 2.5em;
   font-weight: bold;
-  text-shadow: 0px 2px 8px #49789f;
-  color: #fff;
+  text-shadow: 0px 2px 8px rgb(242, 210, 130);
+  color: #202020;
   text-align: center;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
@@ -127,8 +127,8 @@
 }
 
 .biopic span:hover {
-  background: rgba(73, 120, 159);
-  background: rgba(73, 120, 159, 0.5);
+  background: rgb(119,136,153);
+  background: rgba(119,136,153, 0.5);
   text-indent: 0px;
   overflow: hidden;
 }
