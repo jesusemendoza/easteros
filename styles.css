@@ -76,13 +76,11 @@ button {
   left: 40%;
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 20px;
+  text-align: center;
 }
 
 button:hover {
-  -webkit-transform: rotateZ(-30deg);
-  -ms-transform: rotateZ(-30deg);
-  transform: rotateZ(-30deg);
-  background:#53a7ea;
+  background: #696969;
 }
 
 .userName {

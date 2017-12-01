@@ -138,3 +138,7 @@ img {
   -moz-border-radius: 108px;
   border-radius: 108px;
 }
+
+.about-info {
+  padding-bottom: 15%;
+}
