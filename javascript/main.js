@@ -86,7 +86,7 @@ var Hero = function(x, y, ctx,id){
 };
 var hero = new Hero(65, 315, ctx,'hero1');
 var hero2 = new Hero(65, 315, ctx,'hero2');
-charSelect.push(hero,hero2);
+charSelect.push(hero,hero2,hero2);
 
 // Key Check
 var keys = {};
@@ -145,7 +145,7 @@ function move(p) {
         if (collisionTest(a, b)) {
           user.win = true;
           p.playing = false;
-          earthgravity = earthgravity - 0.5;
+          if (levelSelect === 0) earthgravity = earthgravity - 0.5;
           jumpstrength = jumpstrength + 5;
           levelSelect++;
         }
