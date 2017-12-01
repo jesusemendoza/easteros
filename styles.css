@@ -76,6 +76,7 @@ button {
   left: 40%;
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 20px;
+  text-align: center;
 }
 
 button:hover {
