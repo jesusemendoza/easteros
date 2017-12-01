@@ -7,7 +7,7 @@ function Score (name, score) {
   this.name = name;
   this.score = score;
 }
-var levelSelect = 0;
+var levelSelect = 1;  ///changed to 1 for debugging level 2
 var charSelect = [];
 
 var user = {
@@ -143,8 +143,8 @@ function move(p) {
         let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
         let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
-          charSelect[levelSelect].win = true;
-          charSelect[levelSelect].playing = false;
+          p.win = true;
+          p.playing = false;
           earthgravity = earthgravity - 0.5;
           jumpstrength = jumpstrength + 5;
           levelSelect++;
@@ -245,6 +245,10 @@ window.onload = function(){
   var ufo = new Environment(c, ctx, 0.5,'ufo', -500, 0);
   var background = new Images (0,0,ctx,'fg');
   var spacebackground = new Images (0,0,ctx,'space');
+  var galaxy = new Environment(c, ctx, -0.008, 'galaxy', -200, 310);
+  var galaxy2 = new Environment(c, ctx, -0.001, 'galaxy', 500, -150);
+  var planet = new Environment(c, ctx, -0.005, 'planet', 850, 350);
+
   gameLoop();
   function gameLoop(){
     ctx.clearRect(0,0,c.width,c.height);
@@ -277,6 +281,12 @@ window.onload = function(){
       } else {
         spacebackground.update();
         spacebackground.render();
+        galaxy.update();
+        galaxy.render();
+        galaxy2.update();
+        galaxy2.render();
+        planet.update();
+        planet.render();
         renderLevel();
         charSelect[levelSelect].update();
         charSelect[levelSelect].render();

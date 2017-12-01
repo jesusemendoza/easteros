@@ -2,6 +2,10 @@
   display: none;
 }
 
+#galaxy {
+  width: 200px;
+}
+
 .body {
   display: block;
   position: relative;
