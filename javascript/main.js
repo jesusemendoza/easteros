@@ -7,7 +7,7 @@ function Score (name, score) {
   this.name = name;
   this.score = score;
 }
-var levelSelect = 0;  ///changed to 1 for debugging level 2
+var levelSelect = 0;
 var charSelect = [];
 
 var user = {
@@ -66,11 +66,11 @@ c.height = 600;
 var ctx = c.getContext('2d');
 
 var level = maps[levelSelect];
-var levelCols = level[0].length;                              // 64 Columns
-var levelRows = level.length;                                 // 32 Rows
-var tileSize = 16;                                            // 1 Tile = 16 pixels
-var levelWidth = canvas.width = levelCols * tileSize;         // Pixel Width = 1024
-var levelHeight = canvas.height = levelRows * tileSize;       // Pixel Height = 512
+var levelCols = level[0].length;
+var levelRows = level.length;
+var tileSize = 16;
+var levelWidth = canvas.width = levelCols * tileSize;
+var levelHeight = canvas.height = levelRows * tileSize;
 
 var Hero = function(x, y, ctx,id){
   this.x = x;
@@ -161,12 +161,12 @@ var jumpstrength = -10;
 Hero.prototype.update = function(){
   // Update hero
   this.velX = 6 * (!!keys[68] - !!keys[65]);           // 3 * Right - Left. Truthy key equals 1, falsy key equals 0.
-  this.velY += earthgravity ;                                    // Gravity
+  this.velY += earthgravity;
   var expectedYPos = this.velY + this.y;
   move(charSelect[levelSelect]);
   this.onGround = (expectedYPos > this.y);
   if (expectedYPos !== this.y) this.velY = 0;    // hero.velY is 0 on the ground and only on ground
-  if (this.onGround && keys[87]) this.velY = jumpstrength;  // Jump
+  if (this.onGround && keys[87]) this.velY = jumpstrength;
 };
 
 Hero.prototype.render = function(){
@@ -413,27 +413,42 @@ var end = {
         ctx.font = '30px Comic Sans MS';
         ctx.fillStyle = 'red';
         ctx.textAlign = 'center';
-        ctx.fillText('YOU LOSE! GAME OVER!', levelWidth / 2 , 150);
+        ctx.fillText('YOU LOSE!', levelWidth / 2 , 150);
         ctx.fillText('Your score: ' + end.s, levelWidth / 2 , 300);
+        ctx.fillText('Press spacebar to continue (' + user.lives + ' lives left), return to play again!', levelWidth / 2 , 450);
         user.addScoreToLeaderboard();
         user.score = 0;
       }
     }
 
     if (levelSelect === 0){
-      ctx.fillStyle = '#000';
-      ctx.fillRect(0,0, levelWidth, levelHeight);
-      ctx.font = '40px VT323';
-      ctx.fillStyle = 'white';
-      ctx.textAlign = 'center';
-      ctx.fillText('Hi ' + user.name + '!', levelWidth / 2 , 100);
-      ctx.fillText('Welcome to Easteros', levelWidth / 2 , 150);
-      ctx.fillText('Press spacebar to continue', levelWidth / 2 , 400);
-      ctx.font = '30px VT323';
-      ctx.fillText('A = Left', levelWidth / 2 , 230);
-      ctx.fillText('D = Right', levelWidth / 2 , 290);
-      ctx.fillText('W = Jump', levelWidth / 2 , 350);
-      ctx.fillText('Lives: ' + (user.lives - 1), levelWidth / 2 , 450);
+      if (user.lives === 3){
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0,0, levelWidth, levelHeight);
+        ctx.font = '40px VT323';
+        ctx.fillStyle = 'white';
+        ctx.textAlign = 'center';
+        ctx.fillText('Hi ' + user.name + '!', levelWidth / 2 , 100);
+        ctx.fillText('Welcome to Easteros', levelWidth / 2 , 150);
+        ctx.fillText('Press spacebar to continue', levelWidth / 2 , 400);
+        ctx.font = '30px VT323';
+        ctx.fillText('A = Left', levelWidth / 2 , 230);
+        ctx.fillText('D = Right', levelWidth / 2 , 290);
+        ctx.fillText('W = Jump', levelWidth / 2 , 350);
+        ctx.fillText('Lives: ' + (user.lives - 1), levelWidth / 2 , 450);
+      }
+      else {
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0,0, levelWidth, levelHeight);
+        ctx.font = '30px Comic Sans MS';
+        ctx.fillStyle = 'red';
+        ctx.textAlign = 'center';
+        ctx.fillText('YOU LOSE!', levelWidth / 2 , 150);
+        ctx.fillText('Your score: ' + end.s, levelWidth / 2 , 300);
+        ctx.fillText('Press spacebar to continue (' + user.lives + ' lives left), return to play again!', levelWidth / 2 , 450);
+        user.addScoreToLeaderboard();
+        user.score = 0;
+      }
     }
   }
 };
