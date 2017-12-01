@@ -11,6 +11,7 @@ var levelSelect = 0;  ///changed to 1 for debugging level 2
 var charSelect = [];
 
 var user = {
+  win: false,
   namePer: function(){
     var name = localStorage.name;
     if (!name) name = 'anonymous';
@@ -79,7 +80,6 @@ var Hero = function(x, y, ctx,id){
   this.velX = 0;
   this.width = 40;
   this.height = 40;
-  this.win = false;
   this.playing = false;
   this.sprites = document.getElementById(id);
   this.onground = false;
@@ -143,7 +143,7 @@ function move(p) {
         let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
         let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
-          p.win = true;
+          user.win = true;
           p.playing = false;
           earthgravity = earthgravity - 0.5;
           jumpstrength = jumpstrength + 5;
@@ -386,17 +386,17 @@ var end = {
 
   setUp: function (){
 
-    if (!charSelect[levelSelect].win) user.lives--;
+    if (!user.win) user.lives--;
 
     charSelect[levelSelect].x = 65;
     charSelect[levelSelect].y = 300;
     level = maps[levelSelect];
     charSelect[levelSelect].playing = true;
-    charSelect[levelSelect].win = false;
+    user.win = false;
   },
   render: function (){
     if (levelSelect > 0){
-      if (charSelect[levelSelect].win) {
+      if (user.win) {
         ctx.fillStyle = '#000';
         ctx.fillRect(0,0, levelWidth, levelHeight);
         ctx.font = '30px Comic Sans MS';
@@ -433,7 +433,7 @@ var end = {
       ctx.fillText('A = Left', levelWidth / 2 , 230);
       ctx.fillText('D = Right', levelWidth / 2 , 290);
       ctx.fillText('W = Jump', levelWidth / 2 , 350);
-      ctx.fillText('Lives: '+ user.lives, levelWidth / 2 , 450);
+      ctx.fillText('Lives: ' + (user.lives - 1), levelWidth / 2 , 450);
     }
   }
 };
