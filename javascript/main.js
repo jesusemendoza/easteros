@@ -7,7 +7,7 @@ function Score (name, score) {
   this.name = name;
   this.score = score;
 }
-var levelSelect = 1;  ///changed to 1 for debugging level 2
+var levelSelect = 0;  ///changed to 1 for debugging level 2
 var charSelect = [];
 
 var user = {
@@ -243,11 +243,28 @@ window.onload = function(){
   var clouds7 = new Environment(c, ctx, 0.08, 'bg', 640, 300);
   var clouds8 = new Environment(c, ctx, -0.03, 'bg', -200, 310);
   var ufo = new Environment(c, ctx, 0.5,'ufo', -500, 0);
+  var ufo1 = new Environment(c, ctx, 3,'ufo', -500, 0);
+  var ufo2 = new Environment(c, ctx, 4,'ufo', -35, 10);
+  var ufo3 = new Environment(c, ctx, 3,'ufo', -200, 20);
+  var ufo4 = new Environment(c, ctx, 4,'ufo', -100, 5);
+  var ufo5 = new Environment(c, ctx, 3,'ufo', 100, 20);
+  var ufo6 = new Environment(c, ctx, 4,'ufo', 400, 5);
+  var ufo7 = new Environment(c, ctx, 3,'ufo', 680, 20);
+  var ufo8 = new Environment(c, ctx, 4,'ufo', 760, 5);
+  var ufo9 = new Environment(c, ctx, -0.5,'ufo', 0, 50);
   var background = new Images (0,0,ctx,'fg');
   var spacebackground = new Images (0,0,ctx,'space');
   var galaxy = new Environment(c, ctx, -0.008, 'galaxy', -200, 310);
   var galaxy2 = new Environment(c, ctx, -0.001, 'galaxy', 500, -150);
-  var planet = new Environment(c, ctx, -0.005, 'planet', 850, 350);
+  var planet = new Environment(c, ctx, -0.01, 'planet', 850, 350);
+  var sun = new Environment(c, ctx, -0.005, 'sun', 900, 290);
+  var earth = new Environment(c, ctx, -0.005, 'earth', 530, 200);
+  var moon = new Environment(c, ctx, -0.024, 'moon', 50, 0);
+  var mothership = new Environment(c, ctx, -0.08, 'mothership', -60, 180);
+  var asteroids0 = new Environment(c, ctx, 0.1, 'asteroids', 350, 300);
+  var asteroids1 = new Environment(c, ctx, 0.1, 'asteroids', 750, 350);
+  var asteroids2 = new Environment(c, ctx, 0.1, 'asteroids', 50, 400);
+
 
   gameLoop();
   function gameLoop(){
@@ -287,6 +304,38 @@ window.onload = function(){
         galaxy2.render();
         planet.update();
         planet.render();
+        sun.update();
+        sun.render();
+        earth.update();
+        earth.render();
+        moon.update();
+        moon.render();
+        mothership.update();
+        ufo1.update();
+        ufo1.render();
+        ufo2.update();
+        ufo2.render();
+        ufo3.update();
+        ufo3.render();
+        ufo4.update();
+        ufo4.render();
+        ufo6.update();
+        ufo6.render();
+        ufo7.update();
+        ufo7.render();
+        ufo8.update();
+        ufo8.render();
+        ufo9.update();
+        ufo9.render();
+        ufo5.update();
+        ufo5.render();
+        mothership.render();
+        asteroids0.update();
+        asteroids0.render();
+        asteroids1.update();
+        asteroids1.render();
+        asteroids2.update();
+        asteroids2.render();
         renderLevel();
         charSelect[levelSelect].update();
         charSelect[levelSelect].render();
