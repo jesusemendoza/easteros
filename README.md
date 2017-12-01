@@ -15,3 +15,5 @@ http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-anim
 
 TA Mikes github for help with Collision detect.
 https://github.com/michaeltreat/HTML_Canvas_Breakout_Testing
+
+And a lot of Google.
