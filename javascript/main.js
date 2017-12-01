@@ -8,6 +8,7 @@ function Score (name, score) {
   this.score = score;
 }
 var levelSelect = 0;
+var charSelect = [];
 
 var user = {
   namePer: function(){
@@ -84,6 +85,8 @@ var Hero = function(x, y, ctx,id){
   this.onground = false;
 };
 var hero = new Hero(65, 315, ctx,'hero1');
+var hero2 = new Hero(65, 315, ctx,'hero2');
+charSelect.push(hero,hero2);
 
 // Key Check
 var keys = {};
@@ -116,7 +119,7 @@ function move(p) {
   }
   p.x += p.velX;
   // y axis
-  if (hero.y >= 650) hero.playing = false;
+  if (p.y >= 650) p.playing = false;
   for (let i = 0; i < levelRows; i++) {
     for (let j = 0; j < levelCols; j++) {
       if (level[i][j] === 1) {
@@ -140,8 +143,10 @@ function move(p) {
         let a = {x: p.x, y: p.y + p.velY, w: p.width, h: p.height};
         let b = {x: j * tileSize, y: i * tileSize, w: tileSize, h: tileSize};
         if (collisionTest(a, b)) {
-          hero.win = true;
-          hero.playing = false;
+          charSelect[levelSelect].win = true;
+          charSelect[levelSelect].playing = false;
+          earthgravity = earthgravity - 0.5;
+          jumpstrength = jumpstrength + 5;
           levelSelect++;
         }
       }
@@ -150,15 +155,18 @@ function move(p) {
   p.y += p.velY;
 }
 
+var earthgravity = 0.6;
+var jumpstrength = -10;
+
 Hero.prototype.update = function(){
   // Update hero
   this.velX = 6 * (!!keys[68] - !!keys[65]);           // 3 * Right - Left. Truthy key equals 1, falsy key equals 0.
-  this.velY += 0.6;                                    // Gravity
+  this.velY += earthgravity ;                                    // Gravity
   var expectedYPos = this.velY + this.y;
-  move(hero);
+  move(charSelect[levelSelect]);
   this.onGround = (expectedYPos > this.y);
   if (expectedYPos !== this.y) this.velY = 0;    // hero.velY is 0 on the ground and only on ground
-  if (this.onGround && keys[87]) this.velY = -10;  // Jump
+  if (this.onGround && keys[87]) this.velY = jumpstrength;  // Jump
 };
 
 Hero.prototype.render = function(){
@@ -188,18 +196,17 @@ Images.prototype.render = function(){
 };
 
 function renderScore() {
-  ctx.font = '40px Barlow Condensed';
+  ctx.font = '40px VT323';
   ctx.fillStyle = 'red';
   ctx.textAlign = 'left';
   ctx.fillText('Score: ' + user.score, 50, 50);
 }
 
 function renderUserName() {
-  ctx.font = '40px Barlow Condensed';
+  ctx.font = '40px VT323';
   ctx.fillStyle = 'red';
-  ctx.textAlign = 'left';
-  ctx.fillText(user.name, 900, 50);
-  ctx.fillText('lives left' + user.lives, 900, 87);
+  ctx.fillText(user.name, 900, 500);
+  ctx.fillText('Lives: ' + user.lives, 870, 50);
 }
 
 function renderLevel() {
@@ -237,33 +244,44 @@ window.onload = function(){
   var clouds8 = new Environment(c, ctx, -0.03, 'bg', -200, 310);
   var ufo = new Environment(c, ctx, 0.5,'ufo', -500, 0);
   var background = new Images (0,0,ctx,'fg');
+  var spacebackground = new Images (0,0,ctx,'space');
   gameLoop();
   function gameLoop(){
     ctx.clearRect(0,0,c.width,c.height);
-    if (hero.playing){
-      background.update();
-      background.render();
-      clouds4.update();
-      clouds4.render();
-      ufo.update();
-      ufo.render();
-      clouds3.update();
-      clouds3.render();
-      clouds2.update();
-      clouds2.render();
-      renderLevel();
-      hero.update();
-      hero.render();
-      clouds1.update();
-      clouds1.render();
-      clouds5.update();
-      clouds5.render();
-      clouds6.update();
-      clouds6.render();
-      clouds7.update();
-      clouds7.render();
-      clouds8.update();
-      clouds8.render();
+    if (charSelect[levelSelect].playing){
+      if (levelSelect == 0) {
+        spacebackground.update();
+        background.update();
+        background.render();
+        clouds4.update();
+        clouds4.render();
+        ufo.update();
+        ufo.render();
+        clouds3.update();
+        clouds3.render();
+        clouds2.update();
+        clouds2.render();
+        renderLevel();
+        charSelect[levelSelect].update();
+        charSelect[levelSelect].render();
+        clouds1.update();
+        clouds1.render();
+        clouds5.update();
+        clouds5.render();
+        clouds6.update();
+        clouds6.render();
+        clouds7.update();
+        clouds7.render();
+        clouds8.update();
+        clouds8.render();
+      } else {
+        spacebackground.update();
+        spacebackground.render();
+        renderLevel();
+        charSelect[levelSelect].update();
+        charSelect[levelSelect].render();
+
+      }
       renderScore();
       renderUserName();
     } else {
@@ -289,17 +307,17 @@ var end = {
 
   setUp: function (){
 
-    if (!hero.win) user.lives--;
+    if (!charSelect[levelSelect].win) user.lives--;
 
-    hero.x = 65;
-    hero.y = 300;
+    charSelect[levelSelect].x = 65;
+    charSelect[levelSelect].y = 300;
     level = maps[levelSelect];
-    hero.playing = true;
-    hero.win = false;
+    charSelect[levelSelect].playing = true;
+    charSelect[levelSelect].win = false;
   },
   render: function (){
     if (levelSelect > 0){
-      if (hero.win) {
+      if (charSelect[levelSelect].win) {
         ctx.fillStyle = '#000';
         ctx.fillRect(0,0, levelWidth, levelHeight);
         ctx.font = '30px Comic Sans MS';
@@ -327,7 +345,7 @@ var end = {
       ctx.fillStyle = '#000';
       ctx.fillRect(0,0, levelWidth, levelHeight);
       ctx.font = '40px VT323';
-      ctx.fillStyle = 'red';
+      ctx.fillStyle = 'white';
       ctx.textAlign = 'center';
       ctx.fillText('Hi ' + user.name + '!', levelWidth / 2 , 100);
       ctx.fillText('Welcome to Easteros', levelWidth / 2 , 150);
@@ -336,7 +354,6 @@ var end = {
       ctx.fillText('A = Left', levelWidth / 2 , 230);
       ctx.fillText('D = Right', levelWidth / 2 , 290);
       ctx.fillText('W = Jump', levelWidth / 2 , 350);
-      ctx.fillStyle = 'white';
       ctx.fillText('Lives: '+ user.lives, levelWidth / 2 , 450);
     }
   }
