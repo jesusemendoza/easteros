@@ -393,6 +393,7 @@ var end = {
     level = maps[levelSelect];
     charSelect[levelSelect].playing = true;
     user.win = false;
+    end.s = 0;
   },
   render: function (){
     if (levelSelect > 0){
@@ -438,6 +439,7 @@ var end = {
         ctx.fillText('Lives: ' + (user.lives - 1), levelWidth / 2 , 450);
       }
       else {
+        if (user.score !== 0 && end.s !== user.score) end.s = user.score;
         ctx.fillStyle = '#000';
         ctx.fillRect(0,0, levelWidth, levelHeight);
         ctx.font = '30px Comic Sans MS';
