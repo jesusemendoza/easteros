@@ -1,7 +1,7 @@
 # easteros
 Platformer style 2d game with an easteros theme
 
-Creators. Victoria Oh, Jesus Mendoza, Brent Williams, Cody Williams.
+Creators. Liza Oh, Jesus Mendoza, Brent Williams, Cody Williams.
 
 Sources,
 
